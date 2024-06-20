@@ -1,4 +1,5 @@
 from django.db import models
+from profiles.models import Profile
 from django.contrib.auth.models import User
 
 
@@ -16,4 +17,9 @@ class Comment(models.Model):
     content = models.CharField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="comments")
+
+
+class Likes(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="likes")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
 

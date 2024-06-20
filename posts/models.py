@@ -19,7 +19,7 @@ class Comment(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="comments")
 
 
-class Likes(models.Model):
+class Like(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="likes")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
 

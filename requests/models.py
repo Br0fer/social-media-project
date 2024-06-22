@@ -10,3 +10,5 @@ class FriendRequest(models.Model):
     accepted = models.BooleanField()
     created_at = models.DateTimeField()
 
+    def __str__(self):
+        return f"{self.sender.username} send friend request to {self.receiver.username}"

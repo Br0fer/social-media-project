@@ -16,8 +16,10 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
     form_class = UserLoginForm
 
+
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('accounts:login')
+
 
 class RegisterView(CreateView):
     template_name = 'accounts/register.html'
@@ -26,7 +28,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        Profile.objects.create(user=user)
+        user.objects.create(user=user)
         login(self.request, user)
         return redirect(reverse_lazy('accounts:login'))
 

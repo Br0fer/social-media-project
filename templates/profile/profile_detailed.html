@@ -1,1 +1,10 @@
 {% extends "base.html" %}
+{% block title %}
+	{{ profile.username }}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+        <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
+    </div>
+{% endblock %}

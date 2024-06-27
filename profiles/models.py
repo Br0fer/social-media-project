@@ -1,15 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User
+from accounts.models import User
 
 # Create your models here.
 
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile")
-    pfp = models.FileField(upload_to="users_pfp")
+    pfp = models.ImageField(upload_to="users_pfp")
     username = models.CharField(max_length=80)
     bio = models.CharField(max_length=500)
     status = models.CharField(max_length=60)
+    banner = models.ImageField(upload_to="users_banners")
 
     def __str__(self):
         return self.username

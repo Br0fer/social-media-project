@@ -11,6 +11,7 @@ class User(AbstractBaseUser):
         "female": "Female",
         "other": "Other"
     }
+
     birthday = models.DateField()
     gender = models.CharField(max_length=50, choices=GENDER_CHOICES)
     email = models.EmailField()
@@ -22,4 +23,4 @@ class User(AbstractBaseUser):
         default=True
     )
 
-
+    USERNAME_FIELD = "email"

@@ -28,7 +28,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        user.objects.create(user=user)
+        Profile.objects.create(user=user)
         login(self.request, user)
         return redirect(reverse_lazy('accounts:login'))
 

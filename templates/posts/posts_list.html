@@ -20,23 +20,22 @@
                         </div>
                 
                 {% endfor %}
-{#                {% for page_num in page_obj.paginator.page_range %}#}
-{#                    <a href="?page={{ page_num }}" class="d-inline-block">{{ page_num }}</a>#}
-{#                {% endfor %}#}
-                <button class="btn btn-success btn-lg" onclick="ajaxSend()">Ajax Test</button>
+                {% for page_num in page_obj.paginator.page_range %}
+                    <a href="?page={{ page_num }}" class="d-inline-block">{{ page_num }}</a>
+                {% endfor %}
             </div>
             <div class="col-2"></div>
 
         </div>
     </div>
-    <script>
-    function ajaxSend(){
-        fetch('')
-            .then(response => response.text())
-            .then(data => {
-                alert(data)
-            })
-            .catch(error => console.log('Error:', error));
-    }
-    </script>
+{#    <script>#}
+{#    function ajaxSend(){#}
+{#        fetch('')#}
+{#            .then(response => response.text())#}
+{#            .then(data => {#}
+{#                alert(data)#}
+{#            })#}
+{#            .catch(error => console.log('Error:', error));#}
+{#    }#}
+{#    </script>#}
 {% endblock %}

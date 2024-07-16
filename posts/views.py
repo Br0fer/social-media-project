@@ -8,7 +8,7 @@ from posts.models import Post, Comment, Like
 
 class PostsListView(ListView):
     model = Post
-    paginate_by = 5
+    paginate_by = 10
     context_object_name = "posts"
     template_name = "posts/posts_list.html"
 

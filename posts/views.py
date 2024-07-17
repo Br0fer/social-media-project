@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from posts.models import Post, Comment, Like
@@ -7,6 +8,7 @@ from posts.models import Post, Comment, Like
 
 class PostsListView(ListView):
     model = Post
+    paginate_by = 10
     context_object_name = "posts"
     template_name = "posts/posts_list.html"
 
@@ -15,3 +17,6 @@ class PostDetailView(DetailView):
     model = Post
     context_object_name = "post"
     template_name = "posts/post_detailed.html"
+
+
+

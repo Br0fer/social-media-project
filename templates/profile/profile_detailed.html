@@ -5,6 +5,8 @@
 
 {% block content %}
 	<div class="container">
+        {% if profile.pfp %}
         <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
+        {% endif %}
     </div>
 {% endblock %}

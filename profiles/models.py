@@ -5,7 +5,7 @@ from accounts.models import User
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     pfp = models.ImageField(upload_to="users_pfp")
     username = models.CharField(max_length=80)
     bio = models.CharField(max_length=500)

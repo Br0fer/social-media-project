@@ -29,7 +29,7 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         Profile.objects.create(user=user)
-        login(self.request, user)
+        login(self.request, user, backend="accounts.backends.CustomBackend")
         return redirect(reverse_lazy('accounts:login'))
 
 

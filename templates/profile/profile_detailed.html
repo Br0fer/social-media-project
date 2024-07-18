@@ -1,12 +1,36 @@
 {% extends "base.html" %}
 {% block title %}
-	{{ profile.username }}
+    {% if profile %}
+        <title>{{ profile.username }}'s Profile</title>
+    {% elif my_profile %}
+        <title>{{ my_profile.username }}</title>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-	<div class="container">
-        {% if profile.pfp %}
-        <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
-        {% endif %}
-    </div>
+    {% if profile %}
+        <div class="container">
+            {% if profile.pfp %}
+                <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
+            {% endif %}
+            <h1 class="">{{ my_profile.username }}</h1>
+            <form action="{% url 'subscribe' pk=profile.pk%}" method="POST">
+                {% csrf_token %}
+                {{ subscription_form.as_div }}
+                <button type="submit" class="btn btn-danger">Subscribe</button>
+            </form>
+        </div>
+    {% endif %}
+    {% if my_profile %}
+        <div class="container">
+            {% if my_profile.pfp %}
+                <div class="d-flex m-3">
+                    <img src="{{ my_profile.pfp.url }}" alt="Profile Picture"
+                         style="border-radius: 50%; width: 200px; height:200px">
+                {% endif %}
+                <h1 class="">{{ my_profile.username }}</h1>
+                </div>
+            <a href="{% url 'profile-update' %}" class="btn btn-primary">Edit Profile</a>
+        </div>
+    {% endif %}
 {% endblock %}

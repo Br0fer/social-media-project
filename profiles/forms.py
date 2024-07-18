@@ -1,5 +1,5 @@
 from django import forms
-from profiles.models import Profile
+from profiles.models import Profile, Subscriber, Friendship
 
 
 class ProfileCreationForm(forms.ModelForm):
@@ -14,3 +14,9 @@ class ProfileCreationForm(forms.ModelForm):
 
         self.fields["pfp"].widget.attrs.update({'class': "form-control mb-2", 'type': "file"})
         self.fields["banner"].widget.attrs.update({'class': "form-control mb-2", 'type': "file"})
+
+
+class SubscriptionCreationForm(forms.ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = []

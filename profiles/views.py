@@ -14,6 +14,11 @@ class ProfileDetailView(DetailView):
     context_object_name = "profile"
     template_name = "profile/profile_detailed.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["subscription_form"] = SubscriptionCreationForm()
+
+        return context
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -21,18 +26,10 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = "profile"
     form_class = ProfileCreationForm
     template_name = "profile/profile_update.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(self).get_context_data(**kwargs)
-        context["subscription_form"] = SubscriptionCreationForm()
-
-        return context
+    success_url = reverse_lazy("my-profile")
 
     def get_object(self, queryset=None):
         return self.request.user.profile
-
-    def get_success_url(self):
-        return reverse_lazy("profile-detailed", kwargs={"pk": self.request.user.pk})
 
 
 class MyProfileDetailView(LoginRequiredMixin, DetailView):

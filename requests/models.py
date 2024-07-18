@@ -10,5 +10,8 @@ class FriendRequest(models.Model):
     accepted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ("sender", "receiver")
+
     def __str__(self):
         return f"{self.sender.username} send friend request to {self.receiver.username}"

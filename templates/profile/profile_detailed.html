@@ -14,11 +14,18 @@
                 <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
             {% endif %}
             <h1 class="">{{ my_profile.username }}</h1>
-            <form action="{% url 'subscribe' pk=profile.pk%}" method="POST">
-                {% csrf_token %}
-                {{ subscription_form.as_div }}
-                <button type="submit" class="btn btn-danger">Subscribe</button>
-            </form>
+            <div class="d-flex">
+                <form action="{% url 'subscribe' pk=profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ subscription_form.as_div }}
+                    <button type="submit" class="btn btn-danger">Subscribe</button>
+                </form>
+                <form action="{% url 'friendrq' pk=profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ subscription_form.as_div }}
+                    <button type="submit" class="btn btn-success">Send Friend Request</button>
+                </form>
+            </div>
         </div>
     {% endif %}
     {% if my_profile %}

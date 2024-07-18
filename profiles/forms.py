@@ -1,5 +1,6 @@
 from django import forms
 from profiles.models import Profile, Subscriber, Friendship
+from requests.models import FriendRequest
 
 
 class ProfileCreationForm(forms.ModelForm):
@@ -19,4 +20,10 @@ class ProfileCreationForm(forms.ModelForm):
 class SubscriptionCreationForm(forms.ModelForm):
     class Meta:
         model = Subscriber
+        fields = []
+
+
+class FriendRequestCreationForm(forms.ModelForm):
+    class Meta:
+        model = FriendRequest
         fields = []

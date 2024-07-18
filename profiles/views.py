@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, CreateView
 from profiles.models import Profile, Subscriber, Friendship
-from profiles.forms import ProfileCreationForm, SubscriptionCreationForm
+from profiles.forms import ProfileCreationForm, SubscriptionCreationForm, FriendRequestCreationForm
+from requests.models import FriendRequest
 
 # Create your views here.
 
@@ -43,13 +44,16 @@ class MyProfileDetailView(LoginRequiredMixin, DetailView):
         return self.request.user.profile
 
 
-class SubscriptionCreateView(CreateView):
+class SubscriptionCreateView(LoginRequiredMixin, CreateView):
     model = Subscriber
     context_object_name = "subscription"
     form_class = SubscriptionCreationForm
 
+    def get_success_url(self):
+        return reverse_lazy('profile-detailed', kwargs={'pk': self.object.account.pk})
+
     def get_account(self):
-        profile_pk = self.kwargs.get("pk")
+        profile_pk = self.kwargs.get('pk')
 
         return get_object_or_404(Profile, pk=profile_pk)
 
@@ -57,4 +61,24 @@ class SubscriptionCreateView(CreateView):
         form.instance.subscriber = self.request.user.profile
         form.instance.account = self.get_account()
 
-        return form
+        return super().form_valid(form)
+
+
+class FriendRequestCreateView(LoginRequiredMixin, CreateView):
+    model = FriendRequest
+    context_object_name = "friend_request"
+    form_class = FriendRequestCreationForm
+
+    def get_success_url(self):
+        return reverse_lazy('profile-detailed', kwargs={'pk': self.object.receiver.pk})
+
+    def get_receiver(self):
+        receiver_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Profile, pk=receiver_pk)
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user.profile
+        form.instance.receiver = self.get_receiver()
+
+        return super().form_valid(form)

@@ -27,3 +27,9 @@ class FriendRequestCreationForm(forms.ModelForm):
     class Meta:
         model = FriendRequest
         fields = []
+
+
+class FriendshipCreationForm(forms.ModelForm):
+    class Meta:
+        model = Friendship
+        fields = []

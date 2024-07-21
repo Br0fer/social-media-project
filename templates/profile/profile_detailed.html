@@ -15,12 +15,12 @@
             {% endif %}
             <h1 class="">{{ my_profile.username }}</h1>
             <div class="d-flex">
-                <form action="{% url 'subscribe' pk=profile.pk %}" method="POST">
+                <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
                     {% csrf_token %}
                     {{ subscription_form.as_div }}
                     <button type="submit" class="btn btn-danger">Subscribe</button>
                 </form>
-                <form action="{% url 'friendrq' pk=profile.pk %}" method="POST">
+                <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
                     {% csrf_token %}
                     {{ subscription_form.as_div }}
                     <button type="submit" class="btn btn-success">Send Friend Request</button>
@@ -37,7 +37,7 @@
                 {% endif %}
                 <h1 class="">{{ my_profile.username }}</h1>
                 </div>
-            <a href="{% url 'profile-update' %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
         </div>
     {% endif %}
 {% endblock %}

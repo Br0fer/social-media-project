@@ -29,7 +29,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = "profile"
     form_class = ProfileCreationForm
     template_name = "profile/profile_update.html"
-    success_url = reverse_lazy("my-profile")
+    success_url = reverse_lazy("profile:my-profile")
 
     def get_object(self, queryset=None):
         return self.request.user.profile
@@ -50,7 +50,7 @@ class SubscriptionCreateView(LoginRequiredMixin, CreateView):
     form_class = SubscriptionCreationForm
 
     def get_success_url(self):
-        return reverse_lazy('profile-detailed', kwargs={'pk': self.object.account.pk})
+        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.account.pk})
 
     def get_account(self):
         profile_pk = self.kwargs.get('pk')
@@ -70,7 +70,7 @@ class FriendRequestCreateView(LoginRequiredMixin, CreateView):
     form_class = FriendRequestCreationForm
 
     def get_success_url(self):
-        return reverse_lazy('profile-detailed', kwargs={'pk': self.object.receiver.pk})
+        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.receiver.pk})
 
     def get_receiver(self):
         receiver_pk = self.kwargs.get("pk")
@@ -90,7 +90,7 @@ class FriendshipCreateView(LoginRequiredMixin, CreateView):
     form_class = FriendshipCreationForm
 
     def get_success_url(self):
-        return reverse_lazy('profile-detailed', kwargs={'pk': self.object.user2.pk})
+        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.user2.pk})
 
     def get_friend_request(self):
         friend_request_pk = self.kwargs.get("pk")
@@ -98,7 +98,10 @@ class FriendshipCreateView(LoginRequiredMixin, CreateView):
         return get_object_or_404(FriendRequest, pk=friend_request_pk)
 
     def form_valid(self, form):
+        friend_request = self.get_friend_request()
         form.instance.user1 = self.request.user.profile
         form.instance.user2 = self.get_friend_request().sender
+        friend_request.accepted = True
+        friend_request.save()
 
         return super().form_valid(form)

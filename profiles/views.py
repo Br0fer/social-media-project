@@ -17,7 +17,7 @@ class ProfileDetailView(DetailView):
     context_object_name = "profile"
     template_name = "profile/profile_detailed.html"
 
-    def get_receiver_profile(self):
+    def get_watched_profile(self):
         user_pk = self.kwargs.get("pk")
 
         return get_object_or_404(Profile, pk=user_pk)
@@ -28,11 +28,18 @@ class ProfileDetailView(DetailView):
         context["friendrequest_form"] = FriendRequestCreationForm()
         try:
             context["friendrequest"] = self.request.user.profile.friend_requests_send.get(
-                receiver=self.get_receiver_profile())
+                receiver=self.get_watched_profile())
 
             return context
         except ObjectDoesNotExist:
-            return context
+            try:
+                context["subscription"] = self.request.user.profile.subscriptions.get(
+                    account=self.get_watched_profile()
+                )
+
+                return context
+            except ObjectDoesNotExist:
+                return context
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -75,6 +82,20 @@ class SubscriptionCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class SubscriptionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Subscriber
+    template_name = "profile/subscription_delete_confirmation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user_pk"] = self.object.account.pk
+
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.account.pk})
+
+
 class FriendRequestCreateView(LoginRequiredMixin, CreateView):
     model = FriendRequest
     context_object_name = "friend_request"
@@ -101,12 +122,12 @@ class FriendRequestDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["user_pk"] = self.object.receiver.pk
+        context["user_pk"] = self.object.account.pk
 
         return context
 
     def get_success_url(self):
-        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.receiver.pk})
+        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.user.account.pk})
 
 
 class FriendshipCreateView(LoginRequiredMixin, CreateView):

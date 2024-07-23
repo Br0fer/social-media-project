@@ -15,11 +15,15 @@
             {% endif %}
             <h1 class="">{{ my_profile.username }}</h1>
             <div class="d-flex">
+                {% if not subscription %}
                 <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
                     {% csrf_token %}
                     {{ subscription_form.as_div }}
                     <button type="submit" class="btn btn-danger">Subscribe</button>
                 </form>
+                {% else %}
+                    <a href="{% url "profile:unsubscribe" pk=subscription.pk %}" class="btn btn-secondary">Unsubscribe</a>
+                {% endif %}
                 {% if not friendrequest %}
                     <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
                         {% csrf_token %}
@@ -27,7 +31,7 @@
                         <button type="submit" class="btn btn-success">Send Friend Request</button>
                     </form>
                 {% else %}
-                    <a href="{% url "profile:friendreq-delete" pk=friendrequest.pk %}" class="btn btn-secondary">Delete
+                    <a href="{% url "profile:friendreq-delete" pk=friendrequest.pk %}" class="btn btn-warning">Delete
                         Friend Request</a>
                 {% endif %}
             </div>

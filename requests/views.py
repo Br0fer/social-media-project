@@ -17,3 +17,8 @@ class FriendRequestListView(LoginRequiredMixin, ListView):
 
         return context
 
+    def get_queryset(self):
+        queryset = super(FriendRequestListView, self).get_queryset()
+        queryset = queryset.filter(accepted=False)
+
+        return queryset

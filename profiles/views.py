@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView, CreateView
+from django.views.generic import DetailView, UpdateView, CreateView, DeleteView
 from profiles.models import Profile, Subscriber, Friendship
 from profiles.forms import ProfileCreationForm, SubscriptionCreationForm, FriendRequestCreationForm, \
     FriendshipCreationForm
 from requests.models import FriendRequest
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -16,12 +17,22 @@ class ProfileDetailView(DetailView):
     context_object_name = "profile"
     template_name = "profile/profile_detailed.html"
 
+    def get_receiver_profile(self):
+        user_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Profile, pk=user_pk)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["subscription_form"] = SubscriptionCreationForm()
         context["friendrequest_form"] = FriendRequestCreationForm()
+        try:
+            context["friendrequest"] = self.request.user.profile.friend_requests_send.get(
+                receiver=self.get_receiver_profile())
 
-        return context
+            return context
+        except ObjectDoesNotExist:
+            return context
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -82,6 +93,20 @@ class FriendRequestCreateView(LoginRequiredMixin, CreateView):
         form.instance.receiver = self.get_receiver()
 
         return super().form_valid(form)
+
+
+class FriendRequestDeleteView(LoginRequiredMixin, DeleteView):
+    model = FriendRequest
+    template_name = "requests/friendrq_delete_confirmation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user_pk"] = self.object.receiver.pk
+
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.receiver.pk})
 
 
 class FriendshipCreateView(LoginRequiredMixin, CreateView):

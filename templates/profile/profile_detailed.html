@@ -20,11 +20,16 @@
                     {{ subscription_form.as_div }}
                     <button type="submit" class="btn btn-danger">Subscribe</button>
                 </form>
-                <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
-                    {% csrf_token %}
-                    {{ subscription_form.as_div }}
-                    <button type="submit" class="btn btn-success">Send Friend Request</button>
-                </form>
+                {% if not friendrequest %}
+                    <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
+                        {% csrf_token %}
+                        {{ subscription_form.as_div }}
+                        <button type="submit" class="btn btn-success">Send Friend Request</button>
+                    </form>
+                {% else %}
+                    <a href="{% url "profile:friendreq-delete" pk=friendrequest.pk %}" class="btn btn-secondary">Delete
+                        Friend Request</a>
+                {% endif %}
             </div>
         </div>
     {% endif %}
@@ -32,11 +37,11 @@
         <div class="container">
             {% if my_profile.pfp %}
                 <div class="d-flex m-3">
-                    <img src="{{ my_profile.pfp.url }}" alt="Profile Picture"
-                         style="border-radius: 50%; width: 200px; height:200px">
-                {% endif %}
-                <h1 class="">{{ my_profile.username }}</h1>
-                </div>
+                <img src="{{ my_profile.pfp.url }}" alt="Profile Picture"
+                     style="border-radius: 50%; width: 200px; height:200px">
+            {% endif %}
+            <h1 class="">{{ my_profile.username }}</h1>
+            </div>
             <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
         </div>
     {% endif %}

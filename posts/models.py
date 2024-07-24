@@ -8,12 +8,15 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
-    image = models.FileField(upload_to="posts_images")
+    media = models.FileField(upload_to="posts_media")
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts")
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ["-created_at"]
 
 
 class Comment(models.Model):
@@ -32,3 +35,9 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.username} liked {self.post.title} post"
+
+
+class Repost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="shares")
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="shares")
+    text = models.CharField(max_length=80)

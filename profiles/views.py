@@ -29,17 +29,16 @@ class ProfileDetailView(DetailView):
         try:
             context["friendrequest"] = self.request.user.profile.friend_requests_send.get(
                 receiver=self.get_watched_profile())
-
-            return context
         except ObjectDoesNotExist:
-            try:
-                context["subscription"] = self.request.user.profile.subscriptions.get(
-                    account=self.get_watched_profile()
-                )
+            pass
+        try:
+            context["subscription"] = self.request.user.profile.subscriptions.get(
+                account=self.get_watched_profile()
+            )
+        except ObjectDoesNotExist:
+            pass
 
-                return context
-            except ObjectDoesNotExist:
-                return context
+        return context
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):

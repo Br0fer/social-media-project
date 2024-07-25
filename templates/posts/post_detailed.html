@@ -1,1 +1,16 @@
 {% extends "base.html" %}
+{% block title %}
+	<title>{{ post.title }}</title>
+{% endblock %}
+{% block content %}
+	<div class="container">
+        <h2>{{ post.title }}</h2>
+        <img src="{{ post.media.url }}" alt="Post Image">
+        <p>{{ post.description }}</p>
+        <p>Posted at: {{ post.created_at }}</p>
+        <p>{{ post.created_by }}</p>
+        {% if post.created_by == request.user.profile %}
+            <a href="{% url 'posts:delete-post' pk=post.pk %}" class="btn btn-danger">Delete Post</a>
+        {% endif %}
+    </div>
+{% endblock %}

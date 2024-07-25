@@ -6,6 +6,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 
 from posts.forms import PostCreationForm
 from posts.models import Post, Comment, Like
+from posts.mixins import UserIsOwnerMixin
 
 # Create your views here.
 
@@ -33,3 +34,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.created_by = self.request.user.profile
 
         return super().form_valid(form)
+
+
+class PostDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+    model = Post
+    template_name = "posts/post_delete_confirmation.html"
+    success_url = reverse_lazy("posts:posts-list")

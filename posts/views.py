@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from posts.forms import PostCreationForm
+from posts.forms import PostCreationForm, PostUpdateForm
 from posts.models import Post, Comment, Like
 from posts.mixins import UserIsOwnerMixin
 
@@ -40,3 +40,13 @@ class PostDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
     model = Post
     template_name = "posts/post_delete_confirmation.html"
     success_url = reverse_lazy("posts:posts-list")
+
+
+class PostUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
+    model = Post
+    form_class = PostUpdateForm
+    context_object_name = "post"
+    template_name = "posts/post_update_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.pk})

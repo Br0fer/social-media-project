@@ -1,6 +1,6 @@
 from django import forms
 
-from posts.models import Post
+from posts.models import Post, Like, Comment, Repost
 
 
 class PostCreationForm(forms.ModelForm):
@@ -27,3 +27,22 @@ class PostUpdateForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': "form-control mb-2"})
+
+
+class LikeCreationForm(forms.ModelForm):
+    class Meta:
+        model = Like
+        fields = []
+
+
+class CommentCreationForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = []
+
+
+class RepostCreationForm(forms.ModelForm):
+    class Meta:
+        model = Repost
+        fields = []
+

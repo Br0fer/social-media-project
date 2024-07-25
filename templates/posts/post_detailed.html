@@ -12,6 +12,12 @@
         {% if post.created_by == request.user.profile %}
             <a href="{% url 'posts:delete-post' pk=post.pk %}" class="btn btn-danger m-2">Delete Post</a>
             <a href="{% url 'posts:update-post' pk=post.pk %}" class="btn btn-primary m-2">Update Post</a>
+            
         {% endif %}
+        <form action="{% url "posts:liking-post" pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            {{ liking_form.as_div }}
+            <button type="submit" class="btn btn-primary">Like</button>
+        </form>
     </div>
 {% endblock %}

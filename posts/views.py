@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from posts.forms import PostCreationForm, PostUpdateForm
+from posts.forms import PostCreationForm, PostUpdateForm, LikeCreationForm, CommentCreationForm, RepostCreationForm
 from posts.models import Post, Comment, Like
-from posts.mixins import UserIsOwnerMixin
+from posts.mixins import UserIsOwnerMixin, ObjectExistMixin
+
 
 # Create your views here.
 
@@ -22,6 +23,12 @@ class PostDetailView(DetailView):
     model = Post
     context_object_name = "post"
     template_name = "posts/post_detailed.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["liking_form"] = LikeCreationForm()
+
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -50,3 +57,22 @@ class PostUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.pk})
+
+
+class LikeCreateView(LoginRequiredMixin, ObjectExistMixin, CreateView):
+    model = Like
+    form_class = LikeCreationForm
+
+    def get_post(self):
+        post_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Post, pk=post_pk)
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.post.pk})
+
+    def form_valid(self, form):
+        form.instance.post = self.get_post()
+        form.instance.user = self.request.user.profile
+
+        return super().form_valid(form)

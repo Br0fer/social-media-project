@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 
 from posts.forms import PostCreationForm, PostUpdateForm, LikeCreationForm, CommentCreationForm, RepostCreationForm
 from posts.models import Post, Comment, Like
-from posts.mixins import UserIsOwnerMixin, ObjectExistMixin
+from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotOwnerMixin
 
 
 # Create your views here.
@@ -59,7 +59,7 @@ class PostUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
         return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.pk})
 
 
-class LikeCreateView(LoginRequiredMixin, ObjectExistMixin, CreateView):
+class LikeCreateView(LoginRequiredMixin, UserIsNotOwnerMixin, ObjectExistMixin, CreateView):
     model = Like
     form_class = LikeCreationForm
 
@@ -76,3 +76,5 @@ class LikeCreateView(LoginRequiredMixin, ObjectExistMixin, CreateView):
         form.instance.user = self.request.user.profile
 
         return super().form_valid(form)
+
+

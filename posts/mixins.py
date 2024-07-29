@@ -1,6 +1,6 @@
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
-from posts.models import Post
+from posts.models import Post, Like, Comment, Repost
 
 
 class UserIsOwnerMixin(object):
@@ -26,3 +26,12 @@ class ObjectExistMixin(object):
             pass
 
         return super().dispatch(request, *args, **kwargs)
+
+
+class UserIsNotOwnerMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        liked_post = get_object_or_404(Post, pk=kwargs.get("pk"))
+        if liked_post.created_by == request.user.profile:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+

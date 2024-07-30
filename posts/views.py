@@ -78,3 +78,20 @@ class LikeCreateView(LoginRequiredMixin, UserIsNotOwnerMixin, ObjectExistMixin, 
         return super().form_valid(form)
 
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentCreationForm
+
+    def get_post(self):
+        post_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Post, pk=post_pk)
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.related_post.pk})
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.profile
+        form.instance.post = self.get_post()
+
+        return super().form_valid(form)

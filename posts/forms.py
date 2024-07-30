@@ -38,11 +38,17 @@ class LikeCreationForm(forms.ModelForm):
 class CommentCreationForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = []
+        fields = ["content"]
+        widgets = {
+            "content": forms.Textarea(attrs={'class': 'form-control mb-2'}),
+        }
 
 
 class RepostCreationForm(forms.ModelForm):
     class Meta:
         model = Repost
-        fields = []
+        fields = ["text"]
+        widgets = {
+            "text": forms.Textarea(attrs={'class': 'form-control mb-2'}),
+        }
 

@@ -35,3 +35,11 @@ class UserIsNotOwnerMixin(object):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
+
+class UsersLikeMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if request.user.profile != instance.user:
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)

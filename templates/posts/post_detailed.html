@@ -36,6 +36,10 @@
         	{% for comment in comments %}
         		<div class="card">
                     <div class="card-body">
+                        {% if request.user.profile == comment.created_by %}
+                            <a href="{% url 'posts:comment-delete' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                        {% endif %} 
+                        
                         <h5 class="card-title">{{ comment.created_by }}</h5>
                         <p class="card-text">{{ comment.content }}</p>
                         <p class="card-text mt-4">This comment was added at {{ comment.created_at }}</p>

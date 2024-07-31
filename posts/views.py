@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 
 from posts.forms import PostCreationForm, PostUpdateForm, LikeCreationForm, CommentCreationForm, RepostCreationForm
 from posts.models import Post, Comment, Like
-from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotOwnerMixin
+from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotOwnerMixin, UsersLikeMixin
 
 
 # Create your views here.
@@ -95,7 +95,7 @@ class LikeCreateView(LoginRequiredMixin, UserIsNotOwnerMixin, ObjectExistMixin, 
         return super().form_valid(form)
 
 
-class LikeDeleteView(LoginRequiredMixin, DeleteView):
+class LikeDeleteView(LoginRequiredMixin, UsersLikeMixin, DeleteView):
     model = Like
 
     def get_context_data(self, **kwargs):

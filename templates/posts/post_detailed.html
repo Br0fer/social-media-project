@@ -19,5 +19,23 @@
             {{ liking_form.as_div }}
             <button type="submit" class="btn btn-primary">Like</button>
         </form>
+        <form action="{% url 'posts:commenting-post' pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_div }}
+            <button type="submit" class="btn btn-success">Create Comment</button>
+        </form>
+        {% if comments %}
+        	{% for comment in comments %}
+        		<div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ comment.created_by }}</h5>
+                        <p class="card-text">{{ comment.content }}</p>
+                        <p class="card-text mt-4">This comment was added at {{ comment.created_at }}</p>
+                        
+                  </div>
+                </div>
+        	{% endfor %}
+        	
+        {% endif %} 
     </div>
 {% endblock %}

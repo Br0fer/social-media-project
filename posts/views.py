@@ -27,6 +27,8 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["liking_form"] = LikeCreationForm()
+        context["comment_form"] = CommentCreationForm()
+        context["comments"] = get_object_or_404(Post, pk=self.kwargs.get("pk")).comments_on_post.all()
 
         return context
 
@@ -78,6 +80,25 @@ class LikeCreateView(LoginRequiredMixin, UserIsNotOwnerMixin, ObjectExistMixin, 
         return super().form_valid(form)
 
 
+class LikeDeleteView(LoginRequiredMixin, DeleteView):
+    model = Like
+    template_name = "posts/like_delete_confirmation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_pk"] = self.object.liked_post.pk
+
+        return context
+
+    def get_post(self):
+        post_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Post, pk=post_pk)
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.liked_post.pk})
+
+
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentCreationForm
@@ -92,6 +113,20 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user.profile
-        form.instance.post = self.get_post()
+        form.instance.related_post = self.get_post()
 
         return super().form_valid(form)
+
+
+class CommentDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+    model = Comment
+    template_name = "posts/comment_delete_confirmation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_pk"] = self.object.related_post.pk
+
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.related_post.pk})

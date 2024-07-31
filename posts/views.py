@@ -86,7 +86,7 @@ class LikeDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["post_pk"] = self.object.liked_post.pk
+        context["post_pk"] = self.object.post.pk
 
         return context
 
@@ -96,7 +96,7 @@ class LikeDeleteView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(Post, pk=post_pk)
 
     def get_success_url(self):
-        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.liked_post.pk})
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.post.pk})
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):

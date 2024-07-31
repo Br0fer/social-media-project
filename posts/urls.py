@@ -9,7 +9,9 @@ urlpatterns = [
     path("<int:pk>/delete/", views.PostDeleteView.as_view(), name="delete-post"),
     path("<int:pk>/update/", views.PostUpdateView.as_view(), name="update-post"),
     path("<int:pk>/like/", views.LikeCreateView.as_view(), name="liking-post"),
-    path("<int:pk>/comment/", views.CommentCreateView.as_view(), name="commenting-post")
+    path("<int:pk>/comment/", views.CommentCreateView.as_view(), name="commenting-post"),
+    path("<int:pk>/comment/delete/", views.CommentDeleteView.as_view(), name="comment-delete"),
+    path("<int:pk>/like/delete/", views.LikeDeleteView.as_view(), name="like-delete"),
 ]
 
 

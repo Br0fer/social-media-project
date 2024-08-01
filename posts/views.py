@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from posts.forms import PostCreationForm, PostUpdateForm, LikeCreationForm, CommentCreationForm, RepostCreationForm
-from posts.models import Post, Comment, Like
+from posts.models import Post, Comment, Like, Repost
 from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotOwnerMixin, UsersLikeMixin
 
 
@@ -42,6 +42,7 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["liking_form"] = LikeCreationForm()
         context["comment_form"] = CommentCreationForm()
+        context["repost_form"] = RepostCreationForm()
         context["comments"] = get_object_or_404(Post, pk=self.kwargs.get("pk")).comments_on_post.all()
         self.get_buttons(context)
 
@@ -144,3 +145,40 @@ class CommentDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.related_post.pk})
+
+
+class RepostCreateView(LoginRequiredMixin, CreateView):
+    model = Repost
+    form_class = RepostCreationForm
+
+    def get_post(self):
+        post_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Post, pk=post_pk)
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.post.pk})
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user.profile
+        form.instance.post = self.get_post()
+
+        return super().form_valid(form)
+
+
+class RepostDeleteView(LoginRequiredMixin, UsersLikeMixin, DeleteView):
+    model = Repost
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_pk"] = self.object.post.pk
+
+        return context
+
+    def get_post(self):
+        post_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Post, pk=post_pk)
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.post.pk})

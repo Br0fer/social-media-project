@@ -52,6 +52,7 @@
                     <div class="card-body">
                         {% if request.user.profile == comment.created_by %}
                             <a href="{% url 'posts:comment-delete' pk=comment.pk %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                            <a href="{% url "posts:comment-update" pk=comment.pk %}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         {% endif %} 
                         
                         <h5 class="card-title">{{ comment.created_by }}</h5>

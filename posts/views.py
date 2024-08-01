@@ -139,6 +139,15 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class CommentUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
+    model = Comment
+    template_name = "posts/comment_update_form.html"
+    form_class = CommentCreationForm
+
+    def get_success_url(self):
+        return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.related_post.pk})
+
+
 class CommentDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
     model = Comment
     template_name = "posts/comment_delete_confirmation.html"

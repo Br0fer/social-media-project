@@ -11,6 +11,7 @@ urlpatterns = [
     path("<int:pk>/like/", views.LikeCreateView.as_view(), name="liking-post"),
     path("<int:pk>/comment/", views.CommentCreateView.as_view(), name="commenting-post"),
     path("<int:pk>/comment/delete/", views.CommentDeleteView.as_view(), name="comment-delete"),
+    path("<int:pk>/comment/update/", views.CommentUpdateView.as_view(), name="comment-update"),
     path("<int:pk>/like/delete/", views.LikeDeleteView.as_view(), name="like-delete"),
     path("<int:pk>/repost/", views.RepostCreateView.as_view(), name="repost-create"),
     path("<int:pk>/repost/delete", views.RepostDeleteView.as_view(), name="repost-delete"),

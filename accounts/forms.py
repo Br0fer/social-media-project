@@ -14,6 +14,7 @@ class UserLoginForm(AuthenticationForm):
             self.fields[field].widget.attrs.update({'class': 'form-control mb-2', })
 
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control mb-2'})
+        self.fields["username"].label = "Email"
 
 
 class UserRegisterForm(BaseUserCreationForm):

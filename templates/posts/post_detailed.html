@@ -14,11 +14,19 @@
             <a href="{% url 'posts:update-post' pk=post.pk %}" class="btn btn-primary m-2">Update Post</a>
 
         {% endif %}
-    <form action="{% url "posts:repost-create" pk=post.pk %}" method="POST">
-        {% csrf_token %}
-        {{ repost_form.as_div }}
-        <button type="submit" class="btn btn-success">Repost</button>
-    </form>
+    {% if not repost %}
+        <form action="{% url "posts:repost-create" pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            {{ repost_form.as_div }}
+            <button type="submit" class="btn btn-success">Repost</button>
+        </form>
+    {% else %}
+        <form action="{% url "posts:repost-delete" pk=repost.pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Delete Repost</button>
+        </form>
+    {% endif %}
+
     {% if not like %}
     	<form action="{% url "posts:liking-post" pk=post.pk %}" method="POST">
             {% csrf_token %}

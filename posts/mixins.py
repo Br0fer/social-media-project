@@ -28,7 +28,7 @@ class ObjectExistMixin(object):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserIsNotOwnerMixin(object):
+class UserIsNotLikeOwnerMixin(object):
     def dispatch(self, request, *args, **kwargs):
         liked_post = get_object_or_404(Post, pk=kwargs.get("pk"))
         if liked_post.created_by == request.user.profile:
@@ -36,10 +36,18 @@ class UserIsNotOwnerMixin(object):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UsersLikeMixin(object):
+class UsersActionMixin(object):
     def dispatch(self, request, *args, **kwargs):
         instance = self.get_object()
         if request.user.profile != instance.user:
             raise PermissionDenied
 
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UserIsNotOwnerMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.created_by == request.user.profile:
+            raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

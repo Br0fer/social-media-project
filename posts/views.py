@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -7,7 +7,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 
 from posts.forms import PostCreationForm, PostUpdateForm, LikeCreationForm, CommentCreationForm, RepostCreationForm
 from posts.models import Post, Comment, Like, Repost
-from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotOwnerMixin, UsersLikeMixin
+from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotLikeOwnerMixin, UsersActionMixin, \
+    UserIsNotOwnerMixin
 
 
 # Create your views here.
@@ -33,6 +34,11 @@ class PostDetailView(DetailView):
     def get_buttons(self, context):
         try:
             context["like"] = self.request.user.profile.likes.get(post=self.get_watched_post())
+        except ObjectDoesNotExist:
+            pass
+
+        try:
+            context["repost"] = self.request.user.profile.shares.get(post=self.get_watched_post())
         except ObjectDoesNotExist:
             pass
 
@@ -77,7 +83,7 @@ class PostUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
         return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.pk})
 
 
-class LikeCreateView(LoginRequiredMixin, UserIsNotOwnerMixin, ObjectExistMixin, CreateView):
+class LikeCreateView(LoginRequiredMixin, UserIsNotLikeOwnerMixin, ObjectExistMixin, CreateView):
     model = Like
     form_class = LikeCreationForm
 
@@ -96,7 +102,7 @@ class LikeCreateView(LoginRequiredMixin, UserIsNotOwnerMixin, ObjectExistMixin, 
         return super().form_valid(form)
 
 
-class LikeDeleteView(LoginRequiredMixin, UsersLikeMixin, DeleteView):
+class LikeDeleteView(LoginRequiredMixin, UsersActionMixin, DeleteView):
     model = Like
 
     def get_context_data(self, **kwargs):
@@ -160,13 +166,15 @@ class RepostCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy("posts:post-detailed", kwargs={"pk": self.object.post.pk})
 
     def form_valid(self, form):
+        if self.request.user.profile == self.get_post().created_by:
+            raise PermissionDenied("You can't repost your own post.")
         form.instance.user = self.request.user.profile
         form.instance.post = self.get_post()
 
         return super().form_valid(form)
 
 
-class RepostDeleteView(LoginRequiredMixin, UsersLikeMixin, DeleteView):
+class RepostDeleteView(LoginRequiredMixin, UsersActionMixin, DeleteView):
     model = Repost
 
     def get_context_data(self, **kwargs):

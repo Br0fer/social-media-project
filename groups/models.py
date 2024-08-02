@@ -21,3 +21,16 @@ class Member(models.Model):
 
     def __str__(self):
         return f"{self.user.username} is member or {self.group.title}"
+
+
+class Community(models.Model):
+    title = models.CharField(max_length=80)
+    description = models.CharField(max_length=500)
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="communities")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Viewer(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="views")
+    is_admin = models.BooleanField(default=False)
+    community = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="viewers")

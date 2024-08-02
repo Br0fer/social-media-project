@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from groups.models import Group, Member, Community, Viewer
+from groups.forms import GroupCreationForm
 
 
 # Create your views here.
@@ -13,7 +15,19 @@ class GroupsListView(ListView):
 
 
 class GroupCreateView(LoginRequiredMixin, CreateView):
-    pass
+    model = Group
+    form_class = GroupCreationForm
+    template_name = "groups/group_creation_page.html"
+    success_url = reverse_lazy("groups:groups-list")
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.profile
+        group = form.save()
+
+        Member.objects.create(user=self.request.user.profile, group=group).save()
+        group.save()
+
+        return super().form_valid(form)
 
 
 class GroupUpdateView(LoginRequiredMixin, UpdateView):

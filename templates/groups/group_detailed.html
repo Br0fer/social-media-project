@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+	<title>{{ group.title }}</title>
+{% endblock %}
+{% block content %}
+	<div class="container">
+    <h2>{{ group.title }}</h2>
+    <h5>{{ group.description }}</h5>
+    
+    <h3 class="mt-5">Members</h3>
+    {% for member in members %}
+    <h4>{{ member.user.username }}</h4>
+    {% endfor %}
+    </div>
+{% endblock %}

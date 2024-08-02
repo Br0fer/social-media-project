@@ -15,7 +15,15 @@ class GroupsListView(ListView):
 
 
 class GroupDetailView(DetailView):
-    pass
+    model = Group
+    context_object_name = "group"
+    template_name = "groups/group_detailed.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["members"] = Member.objects.filter(group=self.object)
+
+        return context
 
 
 class GroupCreateView(LoginRequiredMixin, CreateView):

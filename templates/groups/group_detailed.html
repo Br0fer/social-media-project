@@ -4,12 +4,17 @@
 {% endblock %}
 {% block content %}
 	<div class="container">
-    <h2>{{ group.title }}</h2>
-    <h5>{{ group.description }}</h5>
-    
-    <h3 class="mt-5">Members</h3>
-    {% for member in members %}
-    <h4>{{ member.user.username }}</h4>
-    {% endfor %}
+        <h2>{{ group.title }}</h2>
+        <h5>{{ group.description }}</h5>
+        
+        <h3 class="mt-5">Members</h3>
+        {% for member in members %}
+        <h4>{{ member.user.username }}</h4>
+        {% endfor %}
+        <form action="{% url "groups:group-join" pk=group.pk %}" method="POST">
+            {% csrf_token %}
+            {{ join_form.as_div }}
+            <button type="submit" class="btn btn-danger">Join</button>
+        </form>
     </div>
 {% endblock %}

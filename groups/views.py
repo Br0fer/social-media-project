@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from groups.models import Group, Member, Community, Viewer
-from groups.forms import GroupCreationForm
+from groups.forms import GroupCreationForm, MemberCreationForm
 
 
 # Create your views here.
@@ -12,6 +12,12 @@ class GroupsListView(ListView):
     model = Group
     context_object_name = "groups"
     template_name = "groups/groups_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["join_form"] = MemberCreationForm()
+
+        return context
 
 
 class GroupDetailView(DetailView):
@@ -43,7 +49,11 @@ class GroupCreateView(LoginRequiredMixin, CreateView):
 
 
 class GroupUpdateView(LoginRequiredMixin, UpdateView):
-    pass
+    model = Group
+    template_name = "groups/group_creation_page.html"
+
+    def get_success_url(self):
+        return reverse_lazy("groups:groups-detail", kwargs={"pk": self.object.pk})
 
 
 class GroupDeleteView(LoginRequiredMixin, DeleteView):
@@ -52,20 +62,41 @@ class GroupDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("groups:groups-list")
 
 
-class MembersListView(ListView):
-    pass
-
-
 class MemberCreateView(LoginRequiredMixin, CreateView):
-    pass
+    model = Member
+    form_class = MemberCreationForm
+
+    def get_group(self):
+        group_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Group, pk=group_pk)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user.profile
+        form.instance.group = self.get_group()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("groups:group-detailed", kwargs={"pk": self.kwargs.get("pk")})
 
 
 class MemberDeleteView(LoginRequiredMixin, DeleteView):
-    pass
+    model = Member
+    template_name = "groups/group_leaving_confirmation.html"
+    success_url = reverse_lazy("groups:groups-list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["group_pk"] = self.kwargs.get("pk")
+
+        return context
 
 
 class CommunityListView(ListView):
-    pass
+    model = Community
+    context_object_name = "communities"
+    template_name = "groups/communities_list.html"
 
 
 class CommunityCreateView(LoginRequiredMixin, CreateView):

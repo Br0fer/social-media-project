@@ -9,6 +9,9 @@ urlpatterns = [
     path('groups/<int:pk>/update/', views.GroupUpdateView.as_view(), name='group-update'),
     path('groups/<int:pk>/join/', views.MemberCreateView.as_view(), name='group-join'),
     path('groups/<int:pk>/leave/', views.MemberDeleteView.as_view(), name='group-leave'),
+    path('communities/', views.CommunityListView.as_view(), name='communities-list'),
+    path('communities/create/', views.CommunityCreateView.as_view(), name='community-create'),
+
 ]
 
 app_name = 'groups'

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from groups.models import Group, Member, Community, Viewer
-from groups.forms import GroupCreationForm, MemberCreationForm
+from groups.forms import GroupCreationForm, MemberCreationForm, CommunityCreationForm
 
 
 # Create your views here.
@@ -73,7 +73,7 @@ class MemberCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user.profile
-        form.instance.group = self.get_group()
+        form.instance.community = self.get_group()
 
         return super().form_valid(form)
 
@@ -106,7 +106,19 @@ class CommunityListView(ListView):
 
 
 class CommunityCreateView(LoginRequiredMixin, CreateView):
-    pass
+    model = Community
+    form_class = CommunityCreationForm
+    template_name = "groups/community_creation_page.html"
+    success_url = reverse_lazy("groups:communities-list")
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.profile
+        community = form.save()
+
+        Viewer.objects.create(user=self.request.user.profile, community=community, is_admin=True).save()
+        community.save()
+
+        return super().form_valid(form)
 
 
 class CommunityUpdateView(LoginRequiredMixin, UpdateView):

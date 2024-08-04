@@ -85,12 +85,18 @@ class MemberDeleteView(LoginRequiredMixin, DeleteView):
     model = Member
     template_name = "groups/group_leaving_confirmation.html"
     success_url = reverse_lazy("groups:groups-list")
+    context_object_name = "member"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["group_pk"] = self.kwargs.get("pk")
 
         return context
+
+    def get_object(self, queryset=None):
+        obj = Member.objects.get(user=self.request.user.profile, group=self.kwargs.get("pk"))
+
+        return obj
 
 
 class CommunityListView(ListView):

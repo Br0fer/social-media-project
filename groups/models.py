@@ -22,6 +22,9 @@ class Member(models.Model):
     def __str__(self):
         return f"{self.user.username} is member of {self.group.title} group"
 
+    class Meta:
+        unique_together = ("user", "group")
+
 
 class Community(models.Model):
     title = models.CharField(max_length=80)

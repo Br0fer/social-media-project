@@ -31,18 +31,6 @@ class PostDetailView(DetailView):
 
         return get_object_or_404(Post, pk=post_pk)
 
-    def get_buttons(self, context):
-        try:
-            context["like"] = self.request.user.profile.likes.get(post=self.get_watched_post())
-        except ObjectDoesNotExist:
-            pass
-
-        try:
-            context["repost"] = self.request.user.profile.shares.get(post=self.get_watched_post())
-        except ObjectDoesNotExist:
-            pass
-
-        return context
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,7 +38,9 @@ class PostDetailView(DetailView):
         context["comment_form"] = CommentCreationForm()
         context["repost_form"] = RepostCreationForm()
         context["comments"] = get_object_or_404(Post, pk=self.kwargs.get("pk")).comments_on_post.all()
-        self.get_buttons(context)
+        if self.request.user.is_authenticated:
+            context["repost"] = self.request.user.profile.shares.filter(post=self.get_watched_post())
+            context["like"] = self.request.user.profile.likes.filter(post=self.get_watched_post())
 
         return context
 

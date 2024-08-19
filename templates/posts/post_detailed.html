@@ -14,6 +14,8 @@
             <a href="{% url 'posts:update-post' pk=post.pk %}" class="btn btn-primary m-2">Update Post</a>
 
         {% endif %}
+    
+    {% if user.is_authenticated %}
     {% if not repost %}
         <form action="{% url "posts:repost-create" pk=post.pk %}" method="POST">
             {% csrf_token %}
@@ -21,7 +23,7 @@
             <button type="submit" class="btn btn-success">Repost</button>
         </form>
     {% else %}
-        <form action="{% url "posts:repost-delete" pk=repost.pk %}" method="POST">
+        <form action="{% url "posts:repost-delete" pk=repost.first.pk %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-success">Delete Repost</button>
         </form>
@@ -34,7 +36,7 @@
             <button type="submit" class="btn btn-primary">Like</button>
         </form>
     {% else %}
-        <form action="{% url "posts:like-delete" pk=like.pk %}" method="POST">
+        <form action="{% url "posts:like-delete" pk=like.first.pk %}" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Unlike</button>
         </form>
@@ -45,6 +47,7 @@
             {{ comment_form.as_div }}
             <button type="submit" class="btn btn-success">Create Comment</button>
         </form>
+    {% endif %}
 
         {% if comments %}
         	{% for comment in comments %}

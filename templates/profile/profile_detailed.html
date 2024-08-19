@@ -11,29 +11,29 @@
     {% if profile %}
         <div class="container">
             {% if profile.pfp %}
-                <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
+            <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
             {% endif %}
             <h1 class="">{{ my_profile.username }}</h1>
             <div class="d-flex">
                 {% if not subscription %}
-                    <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
-                        {% csrf_token %}
-                        {{ subscription_form.as_div }}
-                        <button type="submit" class="btn btn-danger">Subscribe</button>
-                    </form>
+                <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ subscription_form.as_div }}
+                    <button type="submit" class="btn btn-danger">Subscribe</button>
+                </form>
                 {% else %}
-                    <a href="{% url "profile:unsubscribe" pk=subscription.pk %}"
-                       class="btn btn-secondary">Unsubscribe</a>
+                <a href="{% url "profile:unsubscribe" pk=subscription.first.pk %}"
+                   class="btn btn-secondary">Unsubscribe</a>
                 {% endif %}
                 {% if not friendrequest %}
-                    <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
-                        {% csrf_token %}
-                        {{ subscription_form.as_div }}
-                        <button type="submit" class="btn btn-success">Send Friend Request</button>
-                    </form>
+                <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ subscription_form.as_div }}
+                    <button type="submit" class="btn btn-success">Send Friend Request</button>
+                </form>
                 {% else %}
-                    <a href="{% url "profile:friendreq-delete" pk=friendrequest.pk %}" class="btn btn-warning">Delete
-                        Friend Request</a>
+                <a href="{% url "profile:friendreq-delete" pk=friendrequest.first.pk %}" class="btn btn-warning">Delete
+                    Friend Request</a>
                 {% endif %}
             </div>
         </div>

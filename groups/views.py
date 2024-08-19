@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from groups.models import Group, Member, Community, Viewer
-from groups.forms import GroupCreationForm, MemberCreationForm, CommunityCreationForm
+from groups.models import Group, Member, Channel, Viewer
+from groups.forms import GroupCreationForm, MemberCreationForm, ChannelCreationForm
 
 
 # Create your views here.
@@ -73,7 +73,7 @@ class MemberCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user.profile
-        form.instance.community = self.get_group()
+        form.instance.group = self.get_group()
 
         return super().form_valid(form)
 
@@ -99,16 +99,16 @@ class MemberDeleteView(LoginRequiredMixin, DeleteView):
         return obj
 
 
-class CommunityListView(ListView):
-    model = Community
-    context_object_name = "communities"
-    template_name = "groups/communities_list.html"
+class ChannelListView(ListView):
+    model = Channel
+    context_object_name = "channel"
+    template_name = "groups/channels_list.html"
 
 
-class CommunityCreateView(LoginRequiredMixin, CreateView):
-    model = Community
-    form_class = CommunityCreationForm
-    template_name = "groups/community_creation_page.html"
+class ChannelCreateView(LoginRequiredMixin, CreateView):
+    model = Channel
+    form_class = ChannelCreationForm
+    template_name = "groups/channel_creation_page.html"
     success_url = reverse_lazy("groups:communities-list")
 
     def form_valid(self, form):
@@ -121,11 +121,11 @@ class CommunityCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class CommunityUpdateView(LoginRequiredMixin, UpdateView):
+class ChannelUpdateView(LoginRequiredMixin, UpdateView):
     pass
 
 
-class CommunityDeleteView(LoginRequiredMixin, DeleteView):
+class ChannelDeleteView(LoginRequiredMixin, DeleteView):
     pass
 
 

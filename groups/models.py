@@ -5,6 +5,7 @@ from profiles.models import Profile
 
 
 class Group(models.Model):
+    group_picture = models.ImageField(upload_to="group_pictures", null=True, blank=True)
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=500)
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="groups")
@@ -26,7 +27,8 @@ class Member(models.Model):
         unique_together = ("user", "group")
 
 
-class Community(models.Model):
+class Channel(models.Model):
+    channel_picture = models.ImageField(upload_to="channel_pictures", null=True, blank=True)
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=500)
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="communities")
@@ -36,4 +38,4 @@ class Community(models.Model):
 class Viewer(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="views")
     is_admin = models.BooleanField(default=False)
-    community = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="viewers")
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name="viewers")

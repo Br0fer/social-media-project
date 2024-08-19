@@ -11,6 +11,7 @@
         {% for member in members %}
         <h4>{{ member.user.username }}</h4>
         {% endfor %}
+    
         <form action="{% url "groups:group-join" pk=group.pk %}" method="POST">
             {% csrf_token %}
             {{ join_form.as_div }}

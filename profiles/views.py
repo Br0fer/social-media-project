@@ -22,26 +22,15 @@ class ProfileDetailView(DetailView):
 
         return get_object_or_404(Profile, pk=user_pk)
 
-    def get_buttons(self, context):
-        try:
-            context["friendrequest"] = self.request.user.profile.friend_requests_send.get(
-                receiver=self.get_watched_profile())
-        except ObjectDoesNotExist:
-            pass
-        try:
-            context["subscription"] = self.request.user.profile.subscriptions.get(
-                account=self.get_watched_profile()
-            )
-        except ObjectDoesNotExist:
-            pass
-
-        return context
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["subscription_form"] = SubscriptionCreationForm()
         context["friendrequest_form"] = FriendRequestCreationForm()
-        context = self.get_buttons(context)
+        if self.request.user.is_authenticated:
+            context["friendrequest"] = self.request.user.profile.friend_requests_send.filter(
+                receiver=self.get_watched_profile())
+            context["subscription"] = self.request.user.profile.subscriptions.filter(
+                account=self.get_watched_profile())
 
         return context
 

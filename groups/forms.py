@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from groups.models import Group, Member, Community
+from groups.models import Group, Member, Channel
 
 
 class GroupCreationForm(ModelForm):
@@ -19,12 +19,12 @@ class MemberCreationForm(ModelForm):
         fields = []
 
 
-class CommunityCreationForm(ModelForm):
+class ChannelCreationForm(ModelForm):
     class Meta:
-        model = Community
+        model = Channel
         fields = ['title', 'description']
 
     def __init__(self, *args, **kwargs):
-        super(CommunityCreationForm, self).__init__(*args, **kwargs)
+        super(ChannelCreationForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs = {'class': 'form-control mb-2'}

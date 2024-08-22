@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from groups.models import Group, Member, Channel
+from groups.models import Group, Member, Channel, Viewer
 
 
 class GroupCreationForm(ModelForm):
@@ -16,6 +16,12 @@ class GroupCreationForm(ModelForm):
 class MemberCreationForm(ModelForm):
     class Meta:
         model = Member
+        fields = []
+
+
+class ViewerCreationForm(ModelForm):
+    class Meta:
+        model = Viewer
         fields = []
 
 

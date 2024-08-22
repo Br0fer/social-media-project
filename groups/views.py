@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from groups.models import Group, Member, Channel, Viewer
-from groups.forms import GroupCreationForm, MemberCreationForm, ChannelCreationForm
+from groups.forms import GroupCreationForm, MemberCreationForm, ChannelCreationForm, ViewerCreationForm
 
 
 # Create your views here.
@@ -101,41 +101,85 @@ class MemberDeleteView(LoginRequiredMixin, DeleteView):
 
 class ChannelListView(ListView):
     model = Channel
-    context_object_name = "channel"
+    context_object_name = "channels"
     template_name = "groups/channels_list.html"
+
+
+class ChannelDetailView(DetailView):
+    model = Channel
+    context_object_name = "channel"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["viewers"] = Viewer.objects.filter(channel=self.object)
+
+        return context
 
 
 class ChannelCreateView(LoginRequiredMixin, CreateView):
     model = Channel
     form_class = ChannelCreationForm
     template_name = "groups/channel_creation_page.html"
-    success_url = reverse_lazy("groups:communities-list")
+    success_url = reverse_lazy("groups:channels-list")
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user.profile
-        community = form.save()
+        channel = form.save()
 
-        Viewer.objects.create(user=self.request.user.profile, community=community, is_admin=True).save()
-        community.save()
+        Viewer.objects.create(user=self.request.user.profile, channel=channel, is_admin=True).save()
+        channel.save()
 
         return super().form_valid(form)
 
 
 class ChannelUpdateView(LoginRequiredMixin, UpdateView):
-    pass
+    model = Channel
+    form_class = ChannelCreationForm
+    context_object_name = "channel"
+    template_name = "groups/channel_creation_page.html"
+
+    def get_success_url(self):
+        return reverse_lazy("groups:channel-detailed", pk=self.kwargs.get("pk"))
 
 
 class ChannelDeleteView(LoginRequiredMixin, DeleteView):
-    pass
-
-
-class ViewerListView(ListView):
-    pass
+    model = Channel
+    template_name = "groups/channel_delete_confirmation.html"
+    success_url = reverse_lazy("groups:channels-list")
 
 
 class ViewerCreateView(LoginRequiredMixin, CreateView):
-    pass
+    model = Viewer
+    form_class = ViewerCreationForm
+
+    def get_channel(self):
+        channel_pk = self.kwargs.get("pk")
+
+        return get_object_or_404(Channel, pk=channel_pk)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user.profile
+        form.instance.channel = self.get_channel()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("groups:channel-detailed", kwargs={"pk": self.kwargs.get("pk")})
 
 
 class ViewerDeleteView(LoginRequiredMixin, DeleteView):
-    pass
+    model = Viewer
+    template_name = "groups/group_leaving_confirmation.html"
+    success_url = reverse_lazy("groups:channels-list")
+    context_object_name = "viewer"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["channel_pk"] = self.kwargs.get("pk")
+
+        return context
+
+    def get_object(self, queryset=None):
+        obj = Viewer.objects.get(user=self.request.user.profile, channel=self.kwargs.get("pk"))
+
+        return obj

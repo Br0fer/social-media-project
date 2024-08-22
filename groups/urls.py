@@ -9,8 +9,11 @@ urlpatterns = [
     path('groups/<int:pk>/update/', views.GroupUpdateView.as_view(), name='group-update'),
     path('groups/<int:pk>/join/', views.MemberCreateView.as_view(), name='group-join'),
     path('groups/<int:pk>/leave/', views.MemberDeleteView.as_view(), name='group-leave'),
-    path('communities/', views.CommunityListView.as_view(), name='communities-list'),
-    path('communities/create/', views.CommunityCreateView.as_view(), name='community-create'),
+    path('channels/', views.ChannelListView.as_view(), name='channels-list'),
+    path('channels/create/', views.ChannelCreateView.as_view(), name='channel-create'),
+    path('channels/<int:pk>/update/', views.ChannelUpdateView.as_view(), name='channel-update'),
+    path('channels/<int:pk>/delete/', views.ChannelDeleteView.as_view(), name='channel-delete'),
+    path('channels/<int:pk>/', views.ChannelDetailView.as_view(), name='channel-detailed'),
 
 ]
 

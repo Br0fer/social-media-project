@@ -34,6 +34,9 @@ class Channel(models.Model):
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="communities")
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Viewer(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="views")

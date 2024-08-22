@@ -6,6 +6,11 @@
 	<div class="container">
         <h2>{{ channel.title }}</h2>
         <h5>{{ channel.description }}</h5>
+    <form action="{% url "groups:channel-join" pk=channel.pk %}" method="POST">
+        {% csrf_token %}
+        {{ joining.as_div }}
+        <button type="submit" class="btn btn-danger">Join</button>
+    </form>
         <h3>Viewers</h3>
         {% for viewer in viewers %}
         <p>{{ viewer.user.username }}</p>

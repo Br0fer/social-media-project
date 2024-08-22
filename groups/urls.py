@@ -14,6 +14,7 @@ urlpatterns = [
     path('channels/<int:pk>/update/', views.ChannelUpdateView.as_view(), name='channel-update'),
     path('channels/<int:pk>/delete/', views.ChannelDeleteView.as_view(), name='channel-delete'),
     path('channels/<int:pk>/', views.ChannelDetailView.as_view(), name='channel-detailed'),
+    path('channels/<int:pk>/join/', views.ViewerCreateView.as_view(), name='channel-join'),
 
 ]
 

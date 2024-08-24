@@ -8,46 +8,58 @@
 {% endblock %}
 
 {% block content %}
-    {% if profile %}
-        <div class="container">
-            {% if profile.pfp %}
-            <img src="{{ profile.pfp.url }}" alt="Profile Picture" style="border-radius: 50%">
-            {% endif %}
-            <h1 class="">{{ my_profile.username }}</h1>
-            <div class="d-flex">
-                {% if not subscription %}
-                <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
-                    {% csrf_token %}
-                    {{ subscription_form.as_div }}
-                    <button type="submit" class="btn btn-danger">Subscribe</button>
-                </form>
-                {% else %}
-                <a href="{% url "profile:unsubscribe" pk=subscription.first.pk %}"
-                   class="btn btn-secondary">Unsubscribe</a>
+        {% if profile %}
+            <header style='background-image: url("{{ profile.banner.url }}");'>
+            <div class="container">
+            <div class="d-flex m-3">
+                {% if profile.pfp %}
+                    <img src="{{ profile.pfp.url }}" alt="Profile Picture"
+                         style="border-radius: 50%; width: 200px; height: 200px; border: 2px grey solid">
                 {% endif %}
-                {% if not friendrequest %}
-                <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
-                    {% csrf_token %}
-                    {{ subscription_form.as_div }}
-                    <button type="submit" class="btn btn-success">Send Friend Request</button>
-                </form>
-                {% else %}
-                <a href="{% url "profile:friendreq-delete" pk=friendrequest.first.pk %}" class="btn btn-warning">Delete
-                    Friend Request</a>
+                <h1 class="">{{ profile.username }}</h1>
+            </div>
+                <div class="d-flex">
+                    {% if not subscription %}
+                        <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
+                            {% csrf_token %}
+                            {{ subscription_form.as_div }}
+                            <button type="submit" class="btn btn-danger">Subscribe</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url "profile:unsubscribe" pk=subscription.first.pk %}"
+                           class="btn btn-secondary">Unsubscribe</a>
+                    {% endif %}
+                    {% if not friendrequest %}
+                        <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
+                            {% csrf_token %}
+                            {{ subscription_form.as_div }}
+                            <button type="submit" class="btn btn-success">Send Friend Request</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url "profile:friendreq-delete" pk=friendrequest.first.pk %}"
+                           class="btn btn-warning">Delete
+                            Friend Request</a>
+                    {% endif %}
+                </div>
+            </div>
+            </header>
+        {% endif %}
+        {% if my_profile %}
+            
+            <header class="container" style='background-image: url("{{ my_profile.banner.url }}")'>
+           
+                {% if my_profile.pfp %}
+                    <div class="d-flex m-3">
+                    <img src="{{ my_profile.pfp.url }}" alt="Profile Picture"
+                         style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
                 {% endif %}
+                <h1 class="mt-5">{{ my_profile.username }}</h1>
+                </div>
+            </header>
+            <div class="container">
+                <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
             </div>
-        </div>
-    {% endif %}
-    {% if my_profile %}
-        <div class="container">
-            {% if my_profile.pfp %}
-                <div class="d-flex m-3">
-                <img src="{{ my_profile.pfp.url }}" alt="Profile Picture"
-                     style="border-radius: 50%; width: 200px; height:200px">
-            {% endif %}
-            <h1 class="">{{ my_profile.username }}</h1>
-            </div>
-            <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
-        </div>
-    {% endif %}
+        {% endif %}
+
+
 {% endblock %}

@@ -43,5 +43,8 @@ class Viewer(models.Model):
     is_admin = models.BooleanField(default=False)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name="viewers")
 
+    def __str__(self):
+        return f"{self.user.username} views {self.channel.title}"
+
     class Meta:
         unique_together = ("user", "channel")

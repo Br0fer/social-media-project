@@ -15,7 +15,7 @@ class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
     redirect_authenticated_user = True
     form_class = UserLoginForm
-    next_page = reverse_lazy("profile:my-profile")
+    next_page = reverse_lazy("profile:profile-update")
 
 
 class CustomLogoutView(LogoutView):

@@ -8,17 +8,26 @@
 {% endblock %}
 
 {% block content %}
-        {% if profile %}
-            <header style='background-image: url("{{ profile.banner.url }}");'>
-            <div class="container">
-            <div class="d-flex m-3">
+    {% if profile %}
+        <header class="container p-3 mb-3" style='
+                {% if profile.banner %} 
+                    background: no-repeat url("{{ profile.banner.url }}") center; 
+                {% else %} 
+                    background: no-repeat linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%); 
+                {% endif %}background-size:cover;'>
+            <div class="">
                 {% if profile.pfp %}
-                    <img src="{{ profile.pfp.url }}" alt="Profile Picture"
-                         style="border-radius: 50%; width: 200px; height: 200px; border: 2px grey solid">
+                    <div class="align-items-center d-flex m-3">
+                    <img src="{{ profile.pfp.url }}" alt="Profile Picture" class="me-3"
+                         style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
                 {% endif %}
-                <h1 class="">{{ profile.username }}</h1>
-            </div>
-                <div class="d-flex">
+                <div>
+                    <h1 style="text-shadow: 10px 5px 5px black;">{{ profile.username }}</h1>
+                    <h5 style="text-shadow: 10px 5px 5px black;">{{ profile.bio }}</h5>
+                </div>
+                </div>
+        </header>
+                <div class="d-flex container">
                     {% if not subscription %}
                         <form action="{% url 'profile:subscribe' pk=profile.pk %}" method="POST">
                             {% csrf_token %}
@@ -41,25 +50,43 @@
                             Friend Request</a>
                     {% endif %}
                 </div>
-            </div>
-            </header>
-        {% endif %}
-        {% if my_profile %}
-            
-            <header class="container" style='background-image: url("{{ my_profile.banner.url }}")'>
-           
-                {% if my_profile.pfp %}
-                    <div class="d-flex m-3">
-                    <img src="{{ my_profile.pfp.url }}" alt="Profile Picture"
-                         style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
-                {% endif %}
-                <h1 class="mt-5">{{ my_profile.username }}</h1>
+                <div class="container">
+                    {% for post in profile.profile_posts.all %}
+                        {% include "post.html" %}
+                    {% endfor %}
                 </div>
-            </header>
-            <div class="container">
-                <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
+        
+        
+    {% endif %}
+    {% if my_profile %}
+
+        <header class="container p-3 mb-3" style='
+                {% if my_profile.banner %} 
+                    background: no-repeat url("{{ my_profile.banner.url }}") center; 
+                {% else %} 
+                    background: no-repeat linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%); 
+                {% endif %}background-size:cover;'>
+
+            {% if my_profile.pfp %}
+                <div class="align-items-center d-flex m-3">
+                <img src="{{ my_profile.pfp.url }}" alt="Profile Picture" class="me-3"
+                     style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
+            {% endif %}
+            <div>
+                <h1 style="text-shadow: 10px 5px 5px black;">{{ my_profile.username }}</h1>
+                <h5 style="text-shadow: 10px 5px 5px black;">{{ my_profile.bio }}</h5>
             </div>
-        {% endif %}
+            </div>
+        </header>
+        <div class="container">
+            <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
+        </div>
+        <div class="container">
+            {% for post in my_profile.profile_posts.all %}
+                {% include "post.html" %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
 
 {% endblock %}

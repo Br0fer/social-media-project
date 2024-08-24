@@ -10,14 +10,7 @@
             <div class="col-2"></div>
             <div class="col-8">
                 {% for post in posts %}
-                        <div class="card m-3" style="width: 50rem;">
-                            <a href="{% url "posts:post-detailed" post.pk %}">
-                          <img src="{{ post.media.url }}" class="card-img-top" alt="...">
-                            </a>
-                          <div class="card-body">
-                            <h3 class="card-title">{{ post.title }}</h3>
-                          </div>
-                        </div>
+                        {% include "post.html" %}
                 
                 {% endfor %}
                 {% for page_num in page_obj.paginator.page_range %}

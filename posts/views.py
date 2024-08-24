@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from groups.models import Group, Channel
 from posts.forms import PostCreationForm, PostUpdateForm, LikeCreationForm, CommentCreationForm, RepostCreationForm
 from posts.models import Post, Comment, Like, Repost
 from posts.mixins import UserIsOwnerMixin, ObjectExistMixin, UserIsNotLikeOwnerMixin, UsersActionMixin, \
@@ -45,14 +46,49 @@ class PostDetailView(DetailView):
         return context
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class ProfilePostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    success_url = reverse_lazy("posts:posts-list")
+    success_url = reverse_lazy("profile:my-profile")
     form_class = PostCreationForm
     template_name = "posts/post_creation_form.html"
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user.profile
+        form.instance.profile = self.request.user.profile
+        form.instance.type = "profile"
+
+        return super().form_valid(form)
+
+
+class GroupPostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostCreationForm
+    template_name = "posts/post_creation_form.html"
+
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.profile
+        form.instance.group = get_object_or_404(Group, pk=self.kwargs.get("pk"))
+        form.instance.type = "group"
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("groups:group-detailed", kwargs={"pk": self.kwargs.get("pk")})
+
+
+class ChannelPostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostCreationForm
+    template_name = "posts/post_creation_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("groups:channel-detailed", kwargs={"pk": self.kwargs.get("pk")})
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user.profile
+        form.instance.channel = get_object_or_404(Channel, pk=self.kwargs.get("pk"))
+        form.instance.type = "channel"
 
         return super().form_valid(form)
 

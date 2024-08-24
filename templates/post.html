@@ -1,0 +1,15 @@
+<div class="card m-4" style="width: 50rem;">
+    <div class="card-header d-flex justify-content-between">
+        <a class="h3 text-decoration-none" href="{% url "profile:profile-detailed" pk=post.created_by.pk %}">{{ post.created_by.username }}</a>
+        <span>{{ post.created_at|date:"d F" }}</span>
+    </div>
+    
+  <div class="card-body">
+      <a class="text-decoration-none text-white" href="{% url "posts:post-detailed" post.pk %}">
+      {% if post.media %}
+          <img src="{{ post.media.url }}" class="card-img-top img-fluid" alt="..." style="max-height: 500px">
+      {% endif %}
+    <h3 class="card-title mt-3">{{ post.title }}</h3>
+      </a>
+  </div>
+</div>

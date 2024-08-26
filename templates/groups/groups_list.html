@@ -4,14 +4,13 @@
 {% endblock %}
 {% block content %}
 	<div class="container">
+    <a href="{% url "groups:group-create" %}" class="btn btn-primary mb-3">Create Group</a>
     {% for group in groups %}
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title">{{ group.title }}</h5>
             <p class="card-text">{{ group.description }}</p>
-            <a href="#" class="btn btn-primary ">Check Out</a>
-            
-              
+            <a href="{% url "groups:group-detailed" pk=group.pk %}" class="btn btn-primary ">Check Out</a>
           </div>
         </div>
     {% endfor %}

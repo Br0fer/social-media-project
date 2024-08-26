@@ -17,6 +17,9 @@
    <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'posts:posts-list' %}">Social Media</a>
+      <a href="{% url "groups:groups-list" %}" class="nav-link me-3 ">Groups</a>
+      <a href="{% url "groups:channels-list" %}" class="nav-link me-3 ">Channels</a>
+      <a href="/admin/" class="nav-link me-3 ">Admin Panel</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,6 +27,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
      {% if request.user.is_authenticated %}
+         <a href="{% url "profile:my-profile" %}" class="nav-link me-3 ">My Profile</a>
         <a href="{% url "profile:create-post" %}" class="btn btn-outline-light me-3 ">Create Post</a>
           <form action="{% url 'accounts:logout' %}" method="post">
             {% csrf_token %}

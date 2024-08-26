@@ -10,10 +10,17 @@
         {% csrf_token %}
         {{ joining.as_div }}
         <button type="submit" class="btn btn-danger">Join</button>
+        {% if current_viewer.is_admin == True %}
+            <a href="{% url "groups:channel-create-post" pk=channel.pk %}" class="ms-2 btn btn-primary">Create Post</a>
+        {% endif %}
     </form>
-        <h3>Viewers</h3>
+        <h3 class="mt-5">Viewers</h3>
         {% for viewer in viewers %}
         <p>{{ viewer.user.username }}</p>
         {% endfor %}
+    <h3 class="mt-5">Posts</h3>
+    {% for post in posts %}
+    {% include "post.html" %}
+    {% endfor %}
     </div>
 {% endblock %}

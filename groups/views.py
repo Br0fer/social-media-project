@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from groups.models import Group, Member, Channel, Viewer
 from groups.forms import GroupCreationForm, MemberCreationForm, ChannelCreationForm, ViewerCreationForm
+from posts.models import Post
 
 
 # Create your views here.
@@ -28,6 +29,7 @@ class GroupDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["members"] = Member.objects.filter(group=self.object)
+        context["posts"] = Post.objects.filter(type="group", group=self.object)
 
         return context
 
@@ -113,6 +115,8 @@ class ChannelDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["viewers"] = Viewer.objects.filter(channel=self.object)
         context["joining"] = ViewerCreationForm()
+        context['current_viewer'] = Viewer.objects.filter(channel=self.object, user=self.request.user.profile).first()
+        context['posts'] = Post.objects.filter(type="channel", channel=self.object)
 
         return context
 

@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, ListView
 from profiles.models import Profile, Subscriber, Friendship
 from profiles.forms import ProfileCreationForm, SubscriptionCreationForm, FriendRequestCreationForm, \
-    FriendshipCreationForm
+    FriendshipCreationForm, SearchForm
 from requests.models import FriendRequest
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -144,3 +144,26 @@ class FriendshipCreateView(LoginRequiredMixin, CreateView):
         friend_request.save()
 
         return super().form_valid(form)
+
+
+class ProfilesListView(ListView):
+    context_object_name = "profiles"
+    model = Profile
+    template_name = "profile/profiles_list.html"
+
+    def get_queryset(self):
+        queryset = super(ProfilesListView, self).get_queryset()
+
+        profile_name = self.request.GET.get("search")
+        if profile_name:
+            queryset = queryset.filter(username__icontains=profile_name)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = SearchForm(self.request.GET)
+        if self.request.GET.get("search"):
+            context["search"] = self.request.GET.get("search")
+
+        return context

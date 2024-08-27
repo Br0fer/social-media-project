@@ -33,3 +33,8 @@ class FriendshipCreationForm(forms.ModelForm):
     class Meta:
         model = Friendship
         fields = []
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control mb-2'}), required=False,
+                             label="Search by username")

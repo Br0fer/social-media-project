@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+	<title>Users</title>
+{% endblock %}
+{% block content %}
+	<div class="container">
+    <form method="GET">
+      {{ form.as_div }}
+        <button type="submit" class="btn btn-primary mt-3">Search</button>
+    </form>
+    {% if search %}
+        {{ profiles }}
+    {% endif %}
+    </div>
+{% endblock %}

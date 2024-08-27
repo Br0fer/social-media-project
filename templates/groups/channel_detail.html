@@ -4,8 +4,16 @@
 {% endblock %}
 {% block content %}
 	<div class="container">
-        <h2>{{ channel.title }}</h2>
-        <h5>{{ channel.description }}</h5>
+        <div class="align-items-center d-flex m-3">
+            {% if channel.channel_picture %}
+            <img src="{{ channel.channel_picture.url }}" alt="Profile Picture" class="me-3"
+                 style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
+            {% endif %}
+            <div>
+                <h2>{{ channel.title }}</h2>
+                <h5>{{ channel.description }}</h5>
+            </div>
+        </div>
     <form action="{% url "groups:channel-join" pk=channel.pk %}" method="POST">
         {% csrf_token %}
         {{ joining.as_div }}

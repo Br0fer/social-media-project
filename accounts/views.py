@@ -4,8 +4,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-
-from profiles.models import Profile
 from accounts.forms import UserLoginForm, UserRegisterForm
 
 
@@ -29,7 +27,6 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        Profile.objects.create(user=user)
         login(self.request, user, backend="accounts.backends.CustomBackend")
         return redirect(reverse_lazy('accounts:login'))
 

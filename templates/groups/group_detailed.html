@@ -4,8 +4,16 @@
 {% endblock %}
 {% block content %}
 	<div class="container">
-        <h2>{{ group.title }}</h2>
-        <h5>{{ group.description }}</h5>
+        <div class="align-items-center d-flex m-3">
+            {% if group.group_picture %}
+            <img src="{{ group.group_picture.url }}" alt="Profile Picture" class="me-3"
+                 style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
+            {% endif %}
+        <div>
+            <h2>{{ group.title }}</h2>
+            <h5>{{ group.description }}</h5>
+        </div>   
+        </div>
         <form action="{% url "groups:group-join" pk=group.pk %}" method="POST">
             {% csrf_token %}
             {{ join_form.as_div }}

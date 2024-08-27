@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ channel.title }}</h5>
                     <p class="card-text">{{ channel.description }}</p>
-                    <a href="{% url "groups:channel-detailed" pk=channel.pk %}" class="btn btn-primary ">Check Out</a>
+                    <a href="{% url "groups:channel-detailed" pk=channel.pk %}" class="stretched-link"></a>
                 </div>
             </div>
         {% endfor %}

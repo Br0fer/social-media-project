@@ -10,7 +10,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ group.title }}</h5>
             <p class="card-text">{{ group.description }}</p>
-            <a href="{% url "groups:group-detailed" pk=group.pk %}" class="btn btn-primary ">Check Out</a>
+            <a href="{% url "groups:group-detailed" pk=group.pk %}" class="stretched-link">Check Out</a>
           </div>
         </div>
     {% endfor %}

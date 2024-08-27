@@ -115,7 +115,7 @@ class ChannelDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["viewers"] = Viewer.objects.filter(channel=self.object)
         context["joining"] = ViewerCreationForm()
-        context['current_viewer'] = Viewer.objects.filter(channel=self.object, user=self.request.user.profile).first()
+        context['current_viewer'] = self.request.user.profile.views.filter(channel=self.object).first()
         context['posts'] = Post.objects.filter(type="channel", channel=self.object)
 
         return context

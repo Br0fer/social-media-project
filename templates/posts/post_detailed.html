@@ -4,12 +4,15 @@
 {% endblock %}
 {% block content %}
 	<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-7">
         <h2>{{ post.title }}</h2>
         {% if post.media %}
         <img class="img-fluid" src="{{ post.media.url }}" alt="Post Image" style="max-height: 500px">
         {% endif %}
         <p>{{ post.description }}</p>
         <p>Posted at: {{ post.created_at }}</p>
+        <p></p>
         <a href="{% url 'profile:profile-detailed' pk=post.created_by.pk %}">{{ post.created_by }}</a>
         {% if post.created_by == request.user.profile %}
         <a href="{% url 'posts:delete-post' pk=post.pk %}" class="btn btn-danger m-2">Delete Post</a>
@@ -22,18 +25,18 @@
         {% if not like %}
         <form action="{% url "posts:liking-post" pk=post.pk %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Like</button>
+            <button type="submit" class="btn btn-secondary "><i class="bi bi-heart"></i> {{ likes_count }}</button>
         </form>
         {% else %}
         <form action="{% url "posts:like-delete" pk=like.first.pk %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Unlike</button>
+            <button type="submit" class="btn btn-danger"><i class="bi bi-heart-fill"></i> {{ likes_count }}</button>
         </form>
         {% endif %}
         {% if not repost %}
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Repost
+            <i class="bi bi-repeat"></i> {{ repost_count }}
         </button>
 
         <!-- Modal -->
@@ -61,21 +64,25 @@
         {% else %}
         <form action="{% url "posts:repost-delete" pk=repost.first.pk %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-success ms-3">Delete Repost</button>
+            <button type="submit" class="btn btn-success ms-3">
+                <i class="bi bi-repeat"></i> {{ repost_count }}
+</button>
         </form>
         {% endif %}
 </div>
-
+        {% endif %}
+        </div>
+    
+    <div class="col-12 col-md-5">
         <form action="{% url 'posts:commenting-post' pk=post.pk %}" method="POST">
             {% csrf_token %}
             {{ comment_form.as_div }}
             <button type="submit" class="btn btn-success">Create Comment</button>
         </form>
-        {% endif %}
-
+        
         {% if comments %}
         {% for comment in comments %}
-        <div class="card">
+        <div class="card mt-3">
             <div class="card-body">
                 {% if request.user.profile == comment.created_by %}
                 <a href="{% url 'posts:comment-delete' pk=comment.pk %}" class="btn btn-danger"><i
@@ -93,5 +100,7 @@
         {% endfor %}
 
         {% endif %}
+    </div>
+    </div>
     </div>
 {% endblock %}

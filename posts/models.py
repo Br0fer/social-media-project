@@ -55,8 +55,8 @@ class Like(models.Model):
 
 
 class Repost(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="shares")
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="shares")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="reposts")
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="reposts")
     text = models.CharField(max_length=80, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

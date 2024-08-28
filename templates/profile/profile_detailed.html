@@ -81,11 +81,14 @@
             <div>
                 <h1 style="text-shadow: 10px 5px 5px black;">{{ my_profile.username }}</h1>
                 <h5 style="text-shadow: 10px 5px 5px black;">{{ my_profile.bio }}</h5>
+                <h3>{{ friends_count }} friends</h3>
+                <h3>{{ subscribers_count }} subscribers</h3>
             </div>
             </div>
         </header>
         <div class="container">
             <a href="{% url 'profile:profile-update' %}" class="btn btn-primary">Edit Profile</a>
+        
         </div>
         <div class="container">
             {% for post in my_profile.profile_posts.all %}

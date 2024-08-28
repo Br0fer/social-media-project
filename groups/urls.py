@@ -18,6 +18,8 @@ urlpatterns = [
     path('channels/<int:pk>/', views.ChannelDetailView.as_view(), name='channel-detailed'),
     path('channels/<int:pk>/create_post/', p_views.ChannelPostCreateView.as_view(), name='channel-create-post'),
     path('channels/<int:pk>/join/', views.ViewerCreateView.as_view(), name='channel-join'),
+    path("groups/<int:pk>/members/", views.MembersListView.as_view(), name='members-list'),
+    path("channels/<int:pk>/viewers/", views.ViewersListView.as_view(), name='viewers-list'),
 
 ]
 

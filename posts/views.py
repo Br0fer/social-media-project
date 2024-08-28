@@ -24,7 +24,11 @@ class PostsListView(ListView):
     template_name = "posts/posts_list.html"
 
     def get_queryset(self):
-        profile = self.request.user.profile
+        queryset = super(PostsListView, self).get_queryset()
+        try:
+            profile = self.request.user.profile
+        except AttributeError:
+            return queryset
         groups = Group.objects.filter(members__user=profile)
         channels = Channel.objects.filter(viewers__user=profile)
         friends = Profile.objects.filter(models.Q(friends_from__user1=profile) | models.Q(friends_to__user2=profile))

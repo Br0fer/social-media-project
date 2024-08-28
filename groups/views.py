@@ -188,3 +188,27 @@ class ViewerDeleteView(LoginRequiredMixin, DeleteView):
         obj = Viewer.objects.get(user=self.request.user.profile, channel=self.kwargs.get("pk"))
 
         return obj
+
+
+class MembersListView(ListView):
+    model = Member
+    context_object_name = "members"
+    template_name = "groups/members_list_view.html"
+
+    def get_queryset(self):
+        queryset = super(MembersListView, self).get_queryset()
+        queryset = queryset.filter(group=Group.objects.get(pk=self.kwargs.get("pk")))
+
+        return queryset
+
+
+class ViewersListView(ListView):
+    model = Viewer
+    context_object_name = "viewers"
+    template_name = "groups/viewers_list_view.html"
+
+    def get_queryset(self):
+        queryset = super(ViewersListView, self).get_queryset()
+        queryset = queryset.filter(channel=Channel.objects.get(pk=self.kwargs.get("pk")))
+
+        return queryset

@@ -26,6 +26,8 @@
                     <h5 style="text-shadow: 10px 5px 5px black;">{{ profile.bio }}</h5>
                 </div>
                 </div>
+                <p>{{ friends_count }} friends</p>
+                <p>{{ subscribers_count }} subscribers</p>
         </header>
                 <div class="d-flex container">
                     {% if not subscription %}
@@ -38,17 +40,21 @@
                         <a href="{% url "profile:unsubscribe" pk=subscription.first.pk %}"
                            class="btn btn-secondary">Unsubscribe</a>
                     {% endif %}
+                {% if friendship %}
+                    <a href="{% url "profile:friendship-delete" pk=friendship.first.pk %}" class="btn btn-success">You are friends</a>
+                    {% else %}
                     {% if not friendrequest %}
                         <form action="{% url 'profile:friendrq' pk=profile.pk %}" method="POST">
                             {% csrf_token %}
                             {{ subscription_form.as_div }}
                             <button type="submit" class="btn btn-success">Send Friend Request</button>
                         </form>
-                    {% else %}
+                    {% elif friendrequest %}
                         <a href="{% url "profile:friendreq-delete" pk=friendrequest.first.pk %}"
                            class="btn btn-warning">Delete
                             Friend Request</a>
                     {% endif %}
+                {% endif %}
                 </div>
                 <div class="container">
                     {% for post in profile.profile_posts.all %}

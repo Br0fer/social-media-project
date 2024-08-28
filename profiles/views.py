@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, ListView
@@ -26,9 +27,15 @@ class ProfileDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["subscription_form"] = SubscriptionCreationForm()
         context["friendrequest_form"] = FriendRequestCreationForm()
+        context["friends_count"] = Friendship.objects.filter(
+            Q(user1=self.get_watched_profile()) | Q(user2=self.get_watched_profile())).count()
+        context["subscribers_count"] = self.get_watched_profile().subscribers.count()
         if self.request.user.is_authenticated:
             context["friendrequest"] = self.request.user.profile.friend_requests_send.filter(
                 receiver=self.get_watched_profile())
+            context["friendship"] = Friendship.objects.filter(
+                Q(user1=self.request.user.profile, user2=self.get_watched_profile()) | Q(
+                    user1=self.get_watched_profile(), user2=self.request.user.profile))
             context["subscription"] = self.request.user.profile.subscriptions.filter(
                 account=self.get_watched_profile())
 
@@ -167,3 +174,29 @@ class ProfilesListView(ListView):
             context["search"] = self.request.GET.get("search")
 
         return context
+
+
+class FriendshipDeleteView(LoginRequiredMixin, DeleteView):
+    model = Friendship
+    template_name = 'profile/friendship_delete_confirmation.html'
+
+    def form_valid(self, form):
+        if self.object.user1 != self.request.user.profile:
+            friend_request = FriendRequest.objects.filter(
+                Q(sender=self.request.user.profile, receiver=self.object.user1) | Q(receiver=self.request.user.profile,
+                                                                                    sender=self.object.user1)).first()
+        else:
+            friend_request = FriendRequest.objects.filter(
+                Q(sender=self.request.user.profile, receiver=self.object.user2) | Q(receiver=self.request.user.profile,
+                                                                                    sender=self.object.user2)).first()
+
+        if friend_request:
+            friend_request.delete()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        if self.object.user1 != self.request.user.profile:
+            return reverse_lazy("profile:profile-detailed", kwargs={'pk': self.object.user1.pk})
+        else:
+            return reverse_lazy("profile:profile-detailed", kwargs={'pk': self.object.user2.pk})

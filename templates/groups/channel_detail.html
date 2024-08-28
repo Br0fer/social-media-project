@@ -22,10 +22,7 @@
             <a href="{% url "groups:channel-create-post" pk=channel.pk %}" class="ms-2 btn btn-primary">Create Post</a>
         {% endif %}
     </form>
-        <h3 class="mt-5">Viewers</h3>
-        {% for viewer in viewers %}
-        <p>{{ viewer.user.username }}</p>
-        {% endfor %}
+        <a href="{% url "groups:viewers-list" pk=channel.pk %}" class="btn btn-light">Viewers</a>
     <h3 class="mt-5">Posts</h3>
     {% for post in posts %}
     {% include "post.html" %}

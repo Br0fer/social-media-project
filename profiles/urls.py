@@ -14,6 +14,7 @@ urlpatterns = [
     path("<int:pk>/create_friendship/", views.FriendshipCreateView.as_view(), name="friendship"),
     path("<int:pk>/delete_friendrq/", views.FriendRequestDeleteView.as_view(), name="friendreq-delete"),
     path("users/", views.ProfilesListView.as_view(), name="profiles-list"),
+    path("<int:pk>/delete_friendship/", views.FriendshipDeleteView.as_view(), name="friendship-delete"),
 
 ]
 

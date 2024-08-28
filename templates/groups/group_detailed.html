@@ -20,10 +20,7 @@
             <button type="submit" class="btn btn-danger">Join</button>
             <a href="{% url "groups:group-create-post" pk=group.pk %}" class="btn btn-primary ms-2">Create Post</a>
         </form>
-        <h3 class="mt-5">Members</h3>
-        {% for member in members %}
-        <h4>{{ member.user.username }}</h4>
-        {% endfor %}
+        <a href="{% url "groups:members-list" pk=group.pk %}" class="btn btn-light mt-3">Members</a>
     <h3 class="mt-5">Posts</h3>
     {% for post in posts %}
     {% include "post.html" %}

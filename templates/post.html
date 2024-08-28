@@ -1,6 +1,12 @@
 <div class="card m-4" style="width: 50rem;">
     <div class="card-header d-flex justify-content-between">
-        <a class="h3 text-decoration-none" href="{% url "profile:profile-detailed" pk=post.created_by.pk %}">{{ post.created_by.username }}</a>
+        {% if post.profile %}
+        <a class="h3 text-decoration-none" href="{% url "profile:profile-detailed" pk=post.profile.pk %}">{{ post.created_by.username }}</a>
+        {% elif post.group %}
+        <a class="h3 text-decoration-none" href="{% url "groups:group-detailed" pk=post.group.pk %}">{{ post.group.title }} (group)</a>
+        {% elif post.channel %}
+        <a class="h3 text-decoration-none" href="{% url "groups:chanel-detailed" pk=post.channel.pk %}">{{ post.group.title }} (channel)</a>
+        {% endif %}
         <span>{{ post.created_at|date:"d F" }}</span>
     </div>
     

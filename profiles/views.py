@@ -67,6 +67,8 @@ class MyProfileDetailView(LoginRequiredMixin, DetailView):
             Q(user1=self.request.user.profile) | Q(user2=self.request.user.profile)).count()
         context["subscribers_count"] = self.request.user.profile.subscribers.count()
 
+        return context
+
 
 class SubscriptionCreateView(LoginRequiredMixin, CreateView):
     model = Subscriber

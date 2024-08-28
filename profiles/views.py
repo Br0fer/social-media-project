@@ -61,6 +61,12 @@ class MyProfileDetailView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         return self.request.user.profile
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["friends_count"] = Friendship.objects.filter(
+            Q(user1=self.request.user.profile) | Q(user2=self.request.user.profile)).count()
+        context["subscribers_count"] = self.request.user.profile.subscribers.count()
+
 
 class SubscriptionCreateView(LoginRequiredMixin, CreateView):
     model = Subscriber

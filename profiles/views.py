@@ -8,7 +8,8 @@ from profiles.forms import ProfileCreationForm, SubscriptionCreationForm, Friend
     FriendshipCreationForm, SearchForm
 from requests.models import FriendRequest
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.contrib import messages
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -118,9 +119,25 @@ class FriendRequestCreateView(LoginRequiredMixin, CreateView):
         return get_object_or_404(Profile, pk=receiver_pk)
 
     def form_valid(self, form):
-        form.instance.sender = self.request.user.profile
-        form.instance.receiver = self.get_receiver()
+        sender = self.request.user.profile
+        receiver = self.get_receiver()
 
+        if sender == receiver:
+            messages.error(self.request, "Не можна надіслати запит самому собі")
+            return redirect("profile:profile-detailed", pk=receiver.pk)
+
+        already_friends = Friendship.objects.filter(
+            Q(user1=sender, user2=receiver) | Q(user1=receiver, user2=sender)
+        ).exists()
+        request_exists = FriendRequest.objects.filter(
+            Q(sender=sender, receiver=receiver) | Q(sender=receiver, receiver=sender)
+        ).exists()
+        if already_friends or request_exists:
+            messages.error(self.request, "Запит уже існує або ви вже друзі")
+            return redirect("profile:profile-detailed", pk=receiver.pk)
+
+        form.instance.sender = sender
+        form.instance.receiver = receiver
         return super().form_valid(form)
 
 
@@ -147,14 +164,18 @@ class FriendshipCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('profile:profile-detailed', kwargs={'pk': self.object.user2.pk})
 
     def get_friend_request(self):
-        friend_request_pk = self.kwargs.get("pk")
+        return get_object_or_404(
+            FriendRequest,
+            pk=self.kwargs.get("pk"),
+            receiver=self.request.user.profile,
+            accepted=False,
+        )
 
-        return get_object_or_404(FriendRequest, pk=friend_request_pk)
 
     def form_valid(self, form):
         friend_request = self.get_friend_request()
         form.instance.user1 = self.request.user.profile
-        form.instance.user2 = self.get_friend_request().sender
+        form.instance.user2 = friend_request.sender
         friend_request.accepted = True
         friend_request.save()
 

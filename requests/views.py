@@ -18,7 +18,9 @@ class FriendRequestListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = super(FriendRequestListView, self).get_queryset()
-        queryset = queryset.filter(accepted=False)
-
-        return queryset
+        profile = self.request.user.profile
+        return (
+            super().get_queryset()
+            .filter(receiver=profile, accepted=False)
+            .select_related("sender")
+        )

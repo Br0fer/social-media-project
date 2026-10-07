@@ -34,17 +34,15 @@
         </form>
         {% endif %}
         {% if not repost %}
-        <!-- Button trigger modal -->
         <button type="button" class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="bi bi-repeat"></i> {{ repost_count }}
         </button>
 
-        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Repost Form</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{% url "posts:repost-create" pk=post.pk %}" method="POST">
@@ -72,14 +70,14 @@
 </div>
         {% endif %}
         </div>
-    
+
     <div class="col-12 col-md-5">
         <form action="{% url 'posts:commenting-post' pk=post.pk %}" method="POST">
             {% csrf_token %}
             {{ comment_form.as_div }}
             <button type="submit" class="btn btn-success">Create Comment</button>
         </form>
-        
+
         {% if comments %}
         {% for comment in comments %}
         <div class="card mt-3">

@@ -11,7 +11,10 @@ class FriendRequest(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ("sender", "receiver")
+        constraints = [
+            models.UniqueConstraint(fields=["sender", "receiver"], name="unique_friend_request"),
+            models.CheckConstraint(check=~models.Q(sender=models.F("receiver")), name="no_self_friend_request"),
+        ]
 
     def __str__(self):
         return f"{self.sender.username} send friend request to {self.receiver.username}"

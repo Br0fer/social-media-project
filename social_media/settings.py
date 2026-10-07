@@ -26,7 +26,7 @@ DEBUG = True
 
 AUTHENTICATION_BACKENDS = ['accounts.backends.CustomBackend', 'django.contrib.auth.backends.ModelBackend']
 
-ALLOWED_HOSTS = [".onrender.com"]
+ALLOWED_HOSTS = [".onrender.com", "127.0.0.1"]
 
 # Application definition
 

@@ -1,24 +1,34 @@
 {% extends "base.html" %}
-{% block title %}
-	<title>Members of {{ members.first.group }} group</title>
-{% endblock %}
+{% block title %}<title>Members · Social Media</title>{% endblock %}
+{% block space %}space-group{% endblock %}
+
 {% block content %}
-	<div class="container">
-    <div class="row">
-    {% for member in members %}
-        <div class="col-12 col-md-4">
-            <div class="card mt-3">
-                <div class="d-flex align-items-center justify-content-center">
-                    {% if member.user.pfp %}
-                        <img src="{{ member.user.pfp.url }}" alt="Profile Picture" class="m-3"
-                             style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
-                    {% endif %}
-                    <h3 class="card-title">{{ member.user.username }}</h3>
-                    <a href="{% url "profile:profile-detailed" pk=member.user.pk %}" class="stretched-link"></a>
-                </div>
-            </div>
+<div class="page">
+  {% with parent=members.first.group %}
+  {% if parent %}<a class="backlink" href="{% url 'groups:group-detailed' pk=parent.pk %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> {{ parent.title }}</a>{% endif %}
+  <div class="page-head">
+    <div>
+      <h1>Members</h1>
+      <p>{% if parent %}{{ parent.title }} · {% endif %}{{ members|length }} member{{ members|length|pluralize }}</p>
+    </div>
+  </div>
+  {% endwith %}
+
+  {% if members %}
+    <div class="people">
+      {% for item in members %}
+        <div class="person space-person">
+          {% if item.is_admin %}<span class="chip chip-solid badge space-group"><i class="bi bi-star-fill" aria-hidden="true"></i> Admin</span>{% endif %}
+          {% include "partials/avatar.html" with p=item.user %}
+          <div>
+            <h2><a href="{% url 'profile:profile-detailed' pk=item.user.pk %}">{{ item.user.username|default:"New member" }}</a></h2>
+            {% if item.user.status %}<p>{{ item.user.status }}</p>{% endif %}
+          </div>
         </div>
-    {% endfor %}
+      {% endfor %}
     </div>
-    </div>
+  {% else %}
+    {% include "partials/empty.html" with title="No members yet" %}
+  {% endif %}
+</div>
 {% endblock %}

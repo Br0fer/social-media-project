@@ -1,21 +1,51 @@
-<div class="card m-4" style="width: 50rem;">
-    <div class="card-header d-flex justify-content-between">
-        {% if post.profile %}
-        <a class="h3 text-decoration-none" href="{% url "profile:profile-detailed" pk=post.profile.pk %}">{{ post.created_by.username }}</a>
-        {% elif post.group %}
-        <a class="h3 text-decoration-none" href="{% url "groups:group-detailed" pk=post.group.pk %}">{{ post.group.title }} (group)</a>
-        {% elif post.channel %}
-        <a class="h3 text-decoration-none" href="{% url "groups:chanel-detailed" pk=post.channel.pk %}">{{ post.group.title }} (channel)</a>
-        {% endif %}
-        <span>{{ post.created_at|date:"d F" }}</span>
-    </div>
-    
-  <div class="card-body">
-      <a class="text-decoration-none text-white" href="{% url "posts:post-detailed" post.pk %}">
-      {% if post.media %}
-          <img src="{{ post.media.url }}" class="card-img-top img-fluid" alt="..." style="max-height: 500px">
+{% comment %}Post card. Expects `post`.{% endcomment %}
+<article class="post {% if post.group %}space-group{% elif post.channel %}space-channel{% else %}space-person{% endif %}" style="view-transition-name: post-{{ post.pk }}">
+  <header class="post-origin">
+    {% if post.group %}
+      {% include "partials/space_pic.html" with pic=post.group.group_picture title=post.group.title size="sm" %}
+      <div class="who">
+        <a href="{% url 'groups:group-detailed' pk=post.group.pk %}">{{ post.group.title }}</a>
+        <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_by.username|default:"Member" }} · {{ post.created_at|date:"j M, H:i" }}</time>
+      </div>
+      <span class="chip"><i class="bi bi-chat-square-text" aria-hidden="true"></i> Group</span>
+    {% elif post.channel %}
+      {% include "partials/space_pic.html" with pic=post.channel.channel_picture title=post.channel.title size="sm" %}
+      <div class="who">
+        <a href="{% url 'groups:channel-detailed' pk=post.channel.pk %}">{{ post.channel.title }}</a>
+        <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at|date:"j M, H:i" }}</time>
+      </div>
+      <span class="chip"><i class="bi bi-broadcast" aria-hidden="true"></i> Channel</span>
+    {% else %}
+      {% include "partials/avatar.html" with p=post.created_by size="sm" %}
+      <div class="who">
+        <a href="{% url 'profile:profile-detailed' pk=post.created_by.pk %}">{{ post.created_by.username|default:"New member" }}</a>
+        <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at|date:"j M, H:i" }}</time>
+      </div>
+    {% endif %}
+  </header>
+
+  {% if post.media %}
+    {% with name=post.media.name|lower %}
+    <figure class="post-media">
+      {% if '.mp4' in name or '.webm' in name or '.mov' in name or '.ogg' in name %}
+        <video src="{{ post.media.url }}" preload="metadata" muted playsinline></video>
+      {% elif '.png' in name or '.jpg' in name or '.jpeg' in name or '.gif' in name or '.webp' in name or '.avif' in name %}
+        <img src="{{ post.media.url }}" alt="" loading="lazy" decoding="async">
+      {% else %}
+        <div class="post-media-file"><i class="bi bi-paperclip" aria-hidden="true"></i> Attachment</div>
       {% endif %}
-    <h3 class="card-title mt-3">{{ post.title }}</h3>
-      </a>
+    </figure>
+    {% endwith %}
+  {% endif %}
+
+  <div class="post-body">
+    <h2 class="post-title"><a href="{% url 'posts:post-detailed' pk=post.pk %}">{{ post.title }}</a></h2>
+    {% if post.description %}<p class="post-excerpt">{{ post.description }}</p>{% endif %}
+    <div class="post-stats">
+      <span title="Likes"><i class="bi bi-heart" aria-hidden="true"></i> <span class="num">{{ post.likes.count }}</span><span class="sr-only"> likes</span></span>
+      <span title="Reposts"><i class="bi bi-repeat" aria-hidden="true"></i> <span class="num">{{ post.reposts.count }}</span><span class="sr-only"> reposts</span></span>
+      <span title="Comments"><i class="bi bi-chat" aria-hidden="true"></i> <span class="num">{{ post.comments_on_post.count }}</span><span class="sr-only"> comments</span></span>
+      <span class="post-more" aria-hidden="true">Open <i class="bi bi-arrow-right"></i></span>
+    </div>
   </div>
-</div>
+</article>

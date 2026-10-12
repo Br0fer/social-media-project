@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}
-	<title>Profile update</title>
-{% endblock %}
+{% block title %}<title>Edit profile · Social Media</title>{% endblock %}
+
 {% block content %}
-    <div class="container">
-    <form action="{% url "profile:profile-update" %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_div }}
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form> 
+<div class="page page-form">
+  <a class="backlink" href="{% url 'profile:my-profile' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> My profile</a>
+  <div class="block form-card">
+    <div class="form-head">
+      <h1 class="form-title">Edit profile</h1>
+      <p>A username and a profile photo are required. Everything else is optional.</p>
     </div>
-    
+    <form action="{% url 'profile:profile-update' %}" method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="fields">{{ form.as_div }}</div>
+      <div class="form-actions">
+        <a href="{% url 'profile:my-profile' %}" class="btn btn-ghost">Cancel</a>
+        <span class="grow"></span>
+        <button type="submit" class="btn btn-primary btn-lg">Save profile</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

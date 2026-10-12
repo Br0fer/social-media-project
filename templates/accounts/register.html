@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
+{% block title %}<title>Sign up · Social Media</title>{% endblock %}
 
 {% block content %}
-   <div class="container">
-   {% include 'alerts.html' %}
-   <h1 class="text-center">Register</h1>
-       <form method="post">
-          {% csrf_token %}
-            {{ form.as_div }}
-           <button type="submit" class="btn btn-light"> Register </button>
-           <a href="{% url 'accounts:login' %}" class="btn btn-outline-white">Login</a>
-       </form>
+<div class="auth">
+  <section class="auth-art">
+    <div class="auth-blocks" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h1>Make a profile. Find your people.</h1>
+    <p>Add friends, join groups that talk back, and follow channels that broadcast.</p>
+  </section>
 
-   </div>
-
+  <section class="auth-form">
+    <div class="block form-card">
+      <div class="form-head">
+        <h2>Create your account</h2>
+        <p>After this you'll pick a username and a photo.</p>
+      </div>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="fields fields-register">{{ form.as_div }}</div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Create account</button>
+        </div>
+      </form>
+      <p class="auth-switch">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+    </div>
+  </section>
+</div>
 {% endblock %}

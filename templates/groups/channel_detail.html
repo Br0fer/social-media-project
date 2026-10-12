@@ -1,31 +1,58 @@
 {% extends "base.html" %}
-{% block title %}
-	<title>{{ channel.title }}</title>
-{% endblock %}
+{% block title %}<title>{{ channel.title }} · Social Media</title>{% endblock %}
+{% block space %}space-channel{% endblock %}
+
 {% block content %}
-	<div class="container">
-        <div class="align-items-center d-flex m-3">
-            {% if channel.channel_picture %}
-            <img src="{{ channel.channel_picture.url }}" alt="Profile Picture" class="me-3"
-                 style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
-            {% endif %}
-            <div>
-                <h2>{{ channel.title }}</h2>
-                <h5>{{ channel.description }}</h5>
-            </div>
+<div class="page">
+  <a class="backlink" href="{% url 'groups:channels-list' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Channels</a>
+
+  <header class="hero space-channel">
+    <div class="hero-pattern" aria-hidden="true"></div>
+    <div class="hero-inner">
+      {% include "partials/space_pic.html" with pic=channel.channel_picture title=channel.title size="xl" %}
+      <div>
+        <h1>{{ channel.title }}</h1>
+        {% if channel.description %}<p class="hero-sub">{{ channel.description }}</p>{% endif %}
+        <div class="hero-meta">
+          <a class="hero-stat" href="{% url 'groups:viewers-list' pk=channel.pk %}"><strong>{{ viewers|length }}</strong> viewer{{ viewers|length|pluralize }}</a>
+          <span class="hero-stat"><strong>{{ posts|length }}</strong> post{{ posts|length|pluralize }}</span>
+          <span class="hero-stat"><i class="bi bi-broadcast" aria-hidden="true"></i> Only admins post</span>
+          <span class="hero-stat">Since {{ channel.created_at|date:"F Y" }}</span>
         </div>
-    <form action="{% url "groups:channel-join" pk=channel.pk %}" method="POST">
-        {% csrf_token %}
-        {{ joining.as_div }}
-        <button type="submit" class="btn btn-danger">Join</button>
-        {% if current_viewer.is_admin == True %}
-            <a href="{% url "groups:channel-create-post" pk=channel.pk %}" class="ms-2 btn btn-primary">Create Post</a>
-        {% endif %}
-    </form>
-        <a href="{% url "groups:viewers-list" pk=channel.pk %}" class="btn btn-light">Viewers</a>
-    <h3 class="mt-5">Posts</h3>
-    {% for post in posts %}
-    {% include "post.html" %}
-    {% endfor %}
+      </div>
     </div>
+
+    <div class="hero-actions">
+      {% if current_viewer %}
+        {% if current_viewer.is_admin %}
+          <a href="{% url 'groups:channel-create-post' pk=channel.pk %}" class="btn btn-on-block"><i class="bi bi-megaphone" aria-hidden="true"></i> New post</a>
+        {% else %}
+          <span class="btn btn-outline-on-block" aria-disabled="true" style="cursor:default"><i class="bi bi-check2" aria-hidden="true"></i> Following</span>
+        {% endif %}
+      {% elif user.is_authenticated %}
+        <form action="{% url 'groups:channel-join' pk=channel.pk %}" method="post">
+          {% csrf_token %}
+          {{ joining.as_div }}
+          <button type="submit" class="btn btn-on-block"><i class="bi bi-plus-lg" aria-hidden="true"></i> Follow channel</button>
+        </form>
+      {% endif %}
+      <a href="{% url 'groups:viewers-list' pk=channel.pk %}" class="btn btn-outline-on-block"><i class="bi bi-eye" aria-hidden="true"></i> Viewers</a>
+      {% if current_viewer.is_admin %}
+        <span class="spacer"></span>
+        <a href="{% url 'groups:channel-delete' pk=channel.pk %}" class="btn btn-outline-on-block"><i class="bi bi-trash3" aria-hidden="true"></i> Delete channel</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="space-feed">
+    <div class="section-title"><h2>Posts</h2></div>
+    {% if posts %}
+      <div class="feed">
+        {% for post in posts %}{% include "post.html" %}{% endfor %}
+      </div>
+    {% else %}
+      {% include "partials/empty.html" with title="Nothing broadcast yet" body="When the channel's admins post, it appears here and in viewers' feeds." %}
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

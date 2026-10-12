@@ -1,38 +1,79 @@
 {% extends "base.html" %}
-{% block title %}
-	<title>Posts List</title>
-{% endblock %}
+{% block title %}<title>Feed · Social Media</title>{% endblock %}
 
 {% block content %}
-{% load static %}
-    {% if user.is_authenticated %}
-	<div class="container">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                {% for post in posts %}
-                        {% include "post.html" %}
-                
-                {% endfor %}
-                {% for page_num in page_obj.paginator.page_range %}
-                    <a href="?page={{ page_num }}" class="d-inline-block">{{ page_num }}</a>
-                {% endfor %}
-            </div>
-            <div class="col-2"></div>
-
+<div class="page">
+{% if user.is_authenticated %}
+  <div class="shell">
+    <aside class="rail rail-left" aria-label="You">
+      <div class="block me-card">
+        <div class="me-card-top">{% if user.profile.banner %}<img src="{{ user.profile.banner.url }}" alt="">{% endif %}</div>
+        <div class="me-card-body">
+          {% include "partials/avatar.html" with p=user.profile size="lg" %}
+          <h2>{{ user.profile.username|default:"Finish your profile" }}</h2>
+          {% if user.profile.status %}<p>{{ user.profile.status }}</p>{% elif user.profile.bio %}<p>{{ user.profile.bio|truncatechars:90 }}</p>{% endif %}
         </div>
+        <nav class="rail-links" aria-label="Your shortcuts">
+          <a href="{% url 'profile:my-profile' %}"><span class="swatch space-person"><i class="bi bi-person" aria-hidden="true"></i></span> My profile</a>
+          <a href="{% url 'friendrq-list' %}"><span class="swatch space-person"><i class="bi bi-person-plus" aria-hidden="true"></i></span> Friend requests</a>
+          <a href="{% url 'profile:profile-update' %}"><span class="swatch space-person"><i class="bi bi-pencil" aria-hidden="true"></i></span> Edit profile</a>
+        </nav>
+      </div>
+    </aside>
+
+    <section aria-labelledby="feed-title">
+      <div class="feed-head">
+        <h1 id="feed-title">Feed</h1>
+        <a href="{% url 'profile:create-post' %}" class="btn btn-primary"><i class="bi bi-plus-lg" aria-hidden="true"></i> New post</a>
+      </div>
+      {% if posts %}
+        <div class="feed">
+          {% for post in posts %}{% include "post.html" %}{% endfor %}
+        </div>
+        {% include "partials/pager.html" %}
+      {% else %}
+        {% include "partials/empty.html" with title="Your feed is quiet" body="Posts from your friends, subscriptions, groups and channels show up here. Find people or join a group to get started." %}
+        <div class="row" style="justify-content:center;margin-top:var(--s-4)">
+          <a href="{% url 'profile:profiles-list' %}" class="btn btn-soft"><i class="bi bi-people" aria-hidden="true"></i> Find people</a>
+          <a href="{% url 'groups:groups-list' %}" class="btn btn-soft space-group"><i class="bi bi-chat-square-text" aria-hidden="true"></i> Browse groups</a>
+        </div>
+      {% endif %}
+    </section>
+
+    <aside class="rail rail-right" aria-label="Create">
+      <div class="block">
+        <p class="rail-title">Create</p>
+        <nav class="rail-links">
+          <a href="{% url 'profile:create-post' %}"><span class="swatch space-person"><i class="bi bi-file-earmark-plus" aria-hidden="true"></i></span><span>New post<small>On your profile</small></span></a>
+          <a href="{% url 'groups:group-create' %}"><span class="swatch space-group"><i class="bi bi-chat-square-text" aria-hidden="true"></i></span><span>New group<small>Everyone can post</small></span></a>
+          <a href="{% url 'groups:channel-create' %}"><span class="swatch space-channel"><i class="bi bi-broadcast" aria-hidden="true"></i></span><span>New channel<small>Only admins post</small></span></a>
+        </nav>
+      </div>
+      <div class="block legend">
+        <h2>Reading the colours</h2>
+        <ul>
+          <li class="space-person"><span class="sw" aria-hidden="true"></span> Posts from people</li>
+          <li class="space-group"><span class="sw" aria-hidden="true"></span> Posts in groups</li>
+          <li class="space-channel"><span class="sw" aria-hidden="true"></span> Posts in channels</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+{% else %}
+  <div class="welcome block">
+    <div class="welcome-blocks" aria-hidden="true"><span class="space-person"></span><span class="space-group"></span><span class="space-channel"></span></div>
+    <h1>Your people, your groups, your channels.</h1>
+    <p>Log in to see posts from your friends, the groups you talk in and the channels you follow.</p>
+    <div class="row">
+      <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg">Log in</a>
+      <a href="{% url 'accounts:register' %}" class="btn btn-ghost btn-lg">Create an account</a>
     </div>
-    {% else %}
-    <h2>Authorize to see content</h2>
-    {% endif %}
-{#    <script>#}
-{#    function ajaxSend(){#}
-{#        fetch('')#}
-{#            .then(response => response.text())#}
-{#            .then(data => {#}
-{#                alert(data)#}
-{#            })#}
-{#            .catch(error => console.log('Error:', error));#}
-{#    }#}
-{#    </script>#}
+    <div class="welcome-browse">
+      <a href="{% url 'groups:groups-list' %}" class="space-group"><span class="swatch"><i class="bi bi-chat-square-text" aria-hidden="true"></i></span><span>Browse groups<small>Everyone can post</small></span></a>
+      <a href="{% url 'groups:channels-list' %}" class="space-channel"><span class="swatch"><i class="bi bi-broadcast" aria-hidden="true"></i></span><span>Browse channels<small>Only admins post</small></span></a>
+      <a href="{% url 'profile:profiles-list' %}" class="space-person"><span class="swatch"><i class="bi bi-people" aria-hidden="true"></i></span><span>Find people<small>Search by username</small></span></a>
+    </div>
+  </div>
+{% endif %}
+</div>
 {% endblock %}

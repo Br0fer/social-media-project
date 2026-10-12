@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
+{% block title %}<title>Not allowed · Social Media</title>{% endblock %}
 
 {% block content %}
-    <div class="container">
-     <h1>403 - Access Denied </h1>
-    <p>Sorry, u don't have access to this page. {{message}}</p>
+<div class="page">
+  <div class="status-page">
+    <div class="status-code" aria-hidden="true">403</div>
+    <h1>You can't do that here</h1>
+    <p>This action isn't available to your account. For example, you can't like or repost your own posts, or edit something someone else made.</p>
+    <div class="row" style="justify-content:center">
+      <a href="javascript:history.back()" class="btn btn-ghost"><i class="bi bi-arrow-left" aria-hidden="true"></i> Go back</a>
+      <a href="{% url 'posts:posts-list' %}" class="btn btn-primary">Back to feed</a>
     </div>
-   
+  </div>
+</div>
 {% endblock %}

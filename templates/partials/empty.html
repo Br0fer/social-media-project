@@ -1,0 +1,6 @@
+{% comment %}Usage: include "partials/empty.html" with title= body= {% endcomment %}
+<div class="empty">
+  <div class="empty-art" aria-hidden="true"><i></i><i></i><i></i></div>
+  <h2>{{ title }}</h2>
+  {% if body %}<p>{{ body }}</p>{% endif %}
+</div>

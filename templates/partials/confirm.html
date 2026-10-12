@@ -1,0 +1,15 @@
+{% comment %}Usage: include "partials/confirm.html" with title= body= confirm= cancel_url= icon= tone="danger|space" {% endcomment %}
+<div class="page">
+  <div class="block confirm">
+    <span class="confirm-icon{% if tone == 'space' %} confirm-icon-space{% endif %}" aria-hidden="true"><i class="bi {{ icon|default:'bi-trash3' }}"></i></span>
+    <h1 class="confirm-title">{{ title }}</h1>
+    {% if body %}<p>{{ body }}</p>{% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-actions">
+        <a href="{{ cancel_url }}" class="btn btn-ghost btn-lg">Cancel</a>
+        <button type="submit" class="btn btn-lg {% if tone == 'space' %}btn-primary{% else %}btn-danger{% endif %}">{{ confirm }}</button>
+      </div>
+    </form>
+  </div>
+</div>

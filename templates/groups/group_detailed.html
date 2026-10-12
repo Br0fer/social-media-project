@@ -1,29 +1,56 @@
 {% extends "base.html" %}
-{% block title %}
-	<title>{{ group.title }}</title>
-{% endblock %}
+{% block title %}<title>{{ group.title }} · Social Media</title>{% endblock %}
+{% block space %}space-group{% endblock %}
+
 {% block content %}
-	<div class="container">
-        <div class="align-items-center d-flex m-3">
-            {% if group.group_picture %}
-            <img src="{{ group.group_picture.url }}" alt="Profile Picture" class="me-3"
-                 style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
-            {% endif %}
-        <div>
-            <h2>{{ group.title }}</h2>
-            <h5>{{ group.description }}</h5>
-        </div>   
+<div class="page">
+  <a class="backlink" href="{% url 'groups:groups-list' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Groups</a>
+
+  <header class="hero space-group" data-membership>
+    {% comment %}Membership markers: the view passes `members`; CSS :has() switches the action set.{% endcomment %}
+    {% if user.is_authenticated %}{% for m in members %}{% if m.user == user.profile %}<span data-is-member hidden></span>{% if m.is_admin %}<span data-is-admin hidden></span>{% endif %}{% endif %}{% endfor %}{% endif %}
+    <div class="hero-pattern" aria-hidden="true"></div>
+    <div class="hero-inner">
+      {% include "partials/space_pic.html" with pic=group.group_picture title=group.title size="xl" %}
+      <div>
+        <h1>{{ group.title }}</h1>
+        {% if group.description %}<p class="hero-sub">{{ group.description }}</p>{% endif %}
+        <div class="hero-meta">
+          <a class="hero-stat" href="{% url 'groups:members-list' pk=group.pk %}"><strong>{{ members|length }}</strong> member{{ members|length|pluralize }}</a>
+          <span class="hero-stat"><strong>{{ posts|length }}</strong> post{{ posts|length|pluralize }}</span>
+          <span class="hero-stat"><i class="bi bi-chat-square-text" aria-hidden="true"></i> Everyone can post</span>
+          <span class="hero-stat">Since {{ group.created_at|date:"F Y" }}</span>
         </div>
-        <form action="{% url "groups:group-join" pk=group.pk %}" method="POST">
-            {% csrf_token %}
-            {{ join_form.as_div }}
-            <button type="submit" class="btn btn-danger">Join</button>
-            <a href="{% url "groups:group-create-post" pk=group.pk %}" class="btn btn-primary ms-2">Create Post</a>
-        </form>
-        <a href="{% url "groups:members-list" pk=group.pk %}" class="btn btn-light mt-3">Members</a>
-    <h3 class="mt-5">Posts</h3>
-    {% for post in posts %}
-    {% include "post.html" %}
-    {% endfor %}
+      </div>
     </div>
+
+    <div class="hero-actions">
+      {% if user.is_authenticated %}
+        <form action="{% url 'groups:group-join' pk=group.pk %}" method="post" class="when-guest">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-on-block"><i class="bi bi-plus-lg" aria-hidden="true"></i> Join group</button>
+        </form>
+        <a href="{% url 'groups:group-create-post' pk=group.pk %}" class="btn btn-on-block when-member"><i class="bi bi-pencil-square" aria-hidden="true"></i> New post</a>
+        <a href="{% url 'groups:members-list' pk=group.pk %}" class="btn btn-outline-on-block"><i class="bi bi-people" aria-hidden="true"></i> Members</a>
+        <span class="spacer"></span>
+        <a href="{% url 'groups:group-delete' pk=group.pk %}" class="btn btn-outline-on-block when-admin"><i class="bi bi-trash3" aria-hidden="true"></i> Delete group</a>
+        <a href="{% url 'groups:group-leave' pk=group.pk %}" class="btn btn-outline-on-block when-member-only"><i class="bi bi-box-arrow-left" aria-hidden="true"></i> Leave</a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}" class="btn btn-on-block">Log in to join</a>
+        <a href="{% url 'groups:members-list' pk=group.pk %}" class="btn btn-outline-on-block"><i class="bi bi-people" aria-hidden="true"></i> Members</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="space-feed">
+    <div class="section-title"><h2>Posts</h2></div>
+    {% if posts %}
+      <div class="feed">
+        {% for post in posts %}{% include "post.html" %}{% endfor %}
+      </div>
+    {% else %}
+      {% include "partials/empty.html" with title="No posts in this group yet" body="Members can start the conversation with the first post." %}
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

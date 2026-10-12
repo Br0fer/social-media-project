@@ -1,17 +1,7 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}<title>Cancel request · Social Media</title>{% endblock %}
 
 {% block content %}
-   <div class="container">
-   {% include 'alerts.html' %}
-        <div class="d-flex justify-content-center align-items-center">
-            <form method="post" class="">
-          {% csrf_token %}
-           <h3>Are you sure?</h3>
-           <button class="btn btn-light" type="submit"> Yes, delete </button>
-           <a href="{% url 'profile:profile-detailed' pk=user_pk %}" class="btn btn-secondary"> No </a>
-       </form>
-        </div>
-
-   </div>
-
+{% url 'profile:profile-detailed' pk=user_pk as cancel %}
+{% include "partials/confirm.html" with title="Cancel your friend request?" body="They won’t see it anymore. You can send another one later." confirm="Cancel request" cancel_url=cancel icon="bi-person-x" %}
 {% endblock %}

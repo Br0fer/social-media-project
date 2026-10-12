@@ -1,13 +1,24 @@
-{% extends 'base.html' %}
-{% block title %}
-	<title>Post Update</title>
-{% endblock %}
+{% extends "base.html" %}
+{% block title %}<title>Edit post · Social Media</title>{% endblock %}
+{% block space %}{% if post.group %}space-group{% elif post.channel %}space-channel{% else %}space-person{% endif %}{% endblock %}
+
 {% block content %}
-	<div class="container">
-        <form action="{% url 'posts:update-post' pk=post.pk %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_div }}
-            <button type="submit" class="btn btn-success">Update Post</button>
-        </form>
+<div class="page page-form">
+  <a class="backlink" href="{% url 'posts:post-detailed' pk=post.pk %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to post</a>
+  <div class="block form-card">
+    <div class="form-head">
+      <h1 class="form-title">Edit post</h1>
+      <p>Change the title or text. Attached media stays as it is.</p>
     </div>
+    <form method="post" action="{% url 'posts:update-post' pk=post.pk %}" novalidate>
+      {% csrf_token %}
+      <div class="fields">{{ form.as_div }}</div>
+      <div class="form-actions">
+        <a href="{% url 'posts:post-detailed' pk=post.pk %}" class="btn btn-ghost">Cancel</a>
+        <span class="grow"></span>
+        <button type="submit" class="btn btn-primary btn-lg"><p>Change the title or text. Attached media stays as it is.</p>MIT</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -1,18 +1,7 @@
 {% extends "base.html" %}
-{% block title %}
-    <title>Friendship Delete Confirmation</title>
-{% endblock %}
-{% block content %}
-    <div class="container">
-        {% include 'alerts.html' %}
-        <div class="d-flex justify-content-center align-items-center">
-            <form method="post" class="">
-                {% csrf_token %}
-                <h3>Are you sure?</h3>
-                <button class="btn btn-light" type="submit"> Yes, delete </button>
-                <a href="{% url 'groups:groups-list' %}" class="btn btn-secondary"> No </a>
-            </form>
-        </div>
+{% block title %}<title>Remove friend · Social Media</title>{% endblock %}
 
-    </div>
+{% block content %}
+{% url 'profile:my-profile' as cancel %}
+{% include "partials/confirm.html" with title="Remove this friend?" body="You’ll stop seeing each other’s posts in your feeds. You can send a new request later." confirm="Remove friend" cancel_url=cancel icon="bi-person-dash" %}
 {% endblock %}

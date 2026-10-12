@@ -1,0 +1,1 @@
+{% comment %}Usage: include "partials/avatar.html" with p=<Profile> size="sm|lg|xl|" {% endcomment %}{% if p.pfp %}<img class="avatar{% if size %} avatar-{{ size }}{% endif %}" src="{{ p.pfp.url }}" alt="" loading="lazy" decoding="async">{% else %}<span class="avatar{% if size %} avatar-{{ size }}{% endif %}" aria-hidden="true">{{ p.username|first|default:"?" }}</span>{% endif %}

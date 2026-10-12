@@ -1,13 +1,24 @@
-{% extends 'base.html' %}
-{% block title %}
-	<title>Community Creation</title>
-{% endblock %}
+{% extends "base.html" %}
+{% block title %}<title>Channel · Social Media</title>{% endblock %}
+{% block space %}space-channel{% endblock %}
+
 {% block content %}
-	<div class="container">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_div }}
-        <button type="submit" class="btn btn-success">Create Channel</button>
-    </form>
+<div class="page page-form">
+  <a class="backlink" href="{% url 'groups:channels-list' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Channels</a>
+  <div class="block form-card">
+    <div class="form-head">
+      <h1 class="form-title">{% if object %}Edit channel{% else %}New channel{% endif %}</h1>
+      <p>Channels broadcast: only admins post, viewers follow along. You become the admin.</p>
     </div>
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="fields">{{ form.as_div }}</div>
+      <div class="form-actions">
+        <a href="{% url 'groups:channels-list' %}" class="btn btn-ghost">Cancel</a>
+        <span class="grow"></span>
+        <button type="submit" class="btn btn-primary btn-lg"><p>Channels broadcast: only admins post, viewers follow along. You become the admin.</p>MIT</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -1,13 +1,23 @@
 {% extends "base.html" %}
-{% block title %}
-	<title>Comment Update</title>
-{% endblock %}
+{% block title %}<title>Edit comment · Social Media</title>{% endblock %}
+
 {% block content %}
-	<div class="container">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_div }}
-            <button type="submit" class="btn btn-success">Update Comment</button>
-        </form>
+<div class="page page-form">
+  <a class="backlink" href="{% url 'posts:post-detailed' pk=comment.related_post.pk %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to post</a>
+  <div class="block form-card">
+    <div class="form-head">
+      <h1 class="form-title">Edit comment</h1>
+      <p>Up to 250 characters.</p>
     </div>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="fields">{{ form.as_div }}</div>
+      <div class="form-actions">
+        <a href="{% url 'posts:post-detailed' pk=comment.related_post.pk %}" class="btn btn-ghost">Cancel</a>
+        <span class="grow"></span>
+        <button type="submit" class="btn btn-primary btn-lg"><p>Up to 250 characters.</p>MIT</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

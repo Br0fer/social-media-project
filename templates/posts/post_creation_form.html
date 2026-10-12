@@ -1,13 +1,33 @@
 {% extends "base.html" %}
-{% block title %}
-	<title>Post Creation</title>
-{% endblock %}
+{% block title %}<title>New post · Social Media</title>{% endblock %}
+{% block space %}{% with un=request.resolver_match.url_name %}{% if un == 'group-create-post' %}space-group{% elif un == 'channel-create-post' %}space-channel{% else %}space-person{% endif %}{% endwith %}{% endblock %}
+
 {% block content %}
-	<div class="container">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_div }}
-            <button type="submit" class="btn btn-success">Create Post</button>
-        </form>
+{% with un=request.resolver_match.url_name %}
+<div class="page page-form">
+  {% if un == 'group-create-post' %}
+    <a class="backlink" href="{% url 'groups:group-detailed' pk=view.kwargs.pk %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to group</a>
+  {% elif un == 'channel-create-post' %}
+    <a class="backlink" href="{% url 'groups:channel-detailed' pk=view.kwargs.pk %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> Back to channel</a>
+  {% else %}
+    <a class="backlink" href="{% url 'profile:my-profile' %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> My profile</a>
+  {% endif %}
+
+  <div class="block form-card">
+    <div class="form-head">
+      <h1 class="form-title">New post</h1>
+      <p>{% if un == 'group-create-post' %}Posting to this group.{% elif un == 'channel-create-post' %}Posting to this channel.{% else %}Posting to your profile.{% endif %} Give it a short title (up to 50 characters). Photos and videos are optional.</p>
     </div>
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="fields">{{ form.as_div }}</div>
+      <div class="form-actions">
+        <a href="javascript:history.back()" class="btn btn-ghost">Cancel</a>
+        <span class="grow"></span>
+        <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-send" aria-hidden="true"></i> Publish</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endwith %}
 {% endblock %}

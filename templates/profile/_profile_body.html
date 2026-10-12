@@ -1,0 +1,70 @@
+{% comment %}Profile page body. Expects `p` (Profile); `my_profile` is set only on the own-profile route.{% endcomment %}
+<div class="page page-profile">
+  <header class="hero space-person">
+    {% if p.banner %}
+      <img class="hero-banner" src="{{ p.banner.url }}" alt="">
+      <div class="hero-scrim"></div>
+    {% else %}
+      <div class="hero-pattern" aria-hidden="true"></div>
+    {% endif %}
+    <div class="hero-inner">
+      {% include "partials/avatar.html" with p=p size="xl" %}
+      <div>
+        <h1>{{ p.username|default:"New member" }}</h1>
+        {% if p.bio %}<p class="hero-sub">{{ p.bio }}</p>{% endif %}
+        <div class="hero-meta">
+          <span class="hero-stat"><strong>{{ friends_count }}</strong> friend{{ friends_count|pluralize }}</span>
+          <span class="hero-stat"><strong>{{ subscribers_count }}</strong> subscriber{{ subscribers_count|pluralize }}</span>
+          <span class="hero-stat"><strong>{{ p.profile_posts.count }}</strong> post{{ p.profile_posts.count|pluralize }}</span>
+          {% if p.status %}<span class="hero-stat hero-status"><i class="bi bi-chat-quote" aria-hidden="true"></i> {{ p.status }}</span>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      {% if my_profile or p.user == user %}
+        <a href="{% url 'profile:create-post' %}" class="btn btn-on-block"><i class="bi bi-plus-lg" aria-hidden="true"></i> New post</a>
+        <a href="{% url 'profile:profile-update' %}" class="btn btn-outline-on-block"><i class="bi bi-pencil" aria-hidden="true"></i> Edit profile</a>
+      {% elif user.is_authenticated %}
+        {% if friendship %}
+          <a href="{% url 'profile:friendship-delete' pk=friendship.first.pk %}" class="btn btn-on-block" title="Remove from friends"><i class="bi bi-person-check-fill" aria-hidden="true"></i> Friends</a>
+        {% elif friendrequest %}
+          <a href="{% url 'profile:friendreq-delete' pk=friendrequest.first.pk %}" class="btn btn-outline-on-block"><i class="bi bi-hourglass-split" aria-hidden="true"></i> Request sent · Cancel</a>
+        {% else %}
+          <form action="{% url 'profile:friendrq' pk=p.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-on-block"><i class="bi bi-person-plus-fill" aria-hidden="true"></i> Add friend</button>
+          </form>
+        {% endif %}
+
+        {% if subscription %}
+          <a href="{% url 'profile:unsubscribe' pk=subscription.first.pk %}" class="btn btn-outline-on-block"><i class="bi bi-bell-fill" aria-hidden="true"></i> Subscribed</a>
+        {% else %}
+          <form action="{% url 'profile:subscribe' pk=p.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-on-block"><i class="bi bi-bell" aria-hidden="true"></i> Subscribe</button>
+          </form>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}" class="btn btn-on-block">Log in to connect</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <section class="profile-posts" aria-labelledby="posts-title">
+    <div class="section-title">
+      <h2 id="posts-title">Posts</h2>
+    </div>
+    {% with posts=p.profile_posts.all %}
+      {% if posts %}
+        <div class="feed">
+          {% for post in posts %}{% include "post.html" %}{% endfor %}
+        </div>
+      {% elif my_profile or p.user == user %}
+        {% include "partials/empty.html" with title="Nothing posted yet" body="Your first post shows up here and in your friends' feeds." %}
+      {% else %}
+        {% include "partials/empty.html" with title="Nothing posted yet" body="When they post something, it shows up here." %}
+      {% endif %}
+    {% endwith %}
+  </section>
+</div>

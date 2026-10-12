@@ -1,19 +1,41 @@
 {% extends 'base.html' %}
-{% block title %}
-	<title>Users</title>
-{% endblock %}
+{% block title %}<title>People · Social Media</title>{% endblock %}
+
 {% block content %}
-	<div class="container">
-    <form method="GET">
-      {{ form.as_div }}
-        <button type="submit" class="btn btn-primary mt-3">Search</button>
-    </form>
-    <div class="row">
-    {% if search %}
-        {% for profile in profiles %}
-            {% include "profile.html" %} 
-        {% endfor %}
+<div class="page">
+  <div class="page-head">
+    <div>
+      <h1>People</h1>
+      <p>Find someone by username, then add them as a friend or subscribe to their posts.</p>
+    </div>
+  </div>
+
+  <form method="get" class="search-bar" role="search">
+    <div class="fields">{{ form.as_div }}</div>
+    <button type="submit" class="btn btn-primary"><i class="bi bi-search" aria-hidden="true"></i> Search</button>
+  </form>
+
+  {% if search %}
+    <div class="section-title">
+      <h2>Results for “{{ search }}”</h2>
+      <span class="count num">{{ profiles|length }} found</span>
+    </div>
+    {% if profiles %}
+      <div class="people">
+        {% for profile in profiles %}{% include "profile.html" %}{% endfor %}
+      </div>
+    {% else %}
+      {% include "partials/empty.html" with title="No one by that name" body="Check the spelling, or try part of the username." %}
     {% endif %}
-    </div>
-    </div>
+  {% else %}
+    <div class="section-title"><h2>Everyone</h2><span class="count num">{{ profiles|length }}</span></div>
+    {% if profiles %}
+      <div class="people">
+        {% for profile in profiles %}{% include "profile.html" %}{% endfor %}
+      </div>
+    {% else %}
+      {% include "partials/empty.html" with title="No one here yet" body="When people sign up, they appear here." %}
+    {% endif %}
+  {% endif %}
+</div>
 {% endblock %}

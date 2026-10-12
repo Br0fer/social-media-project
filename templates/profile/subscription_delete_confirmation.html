@@ -1,17 +1,7 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}<title>Unsubscribe · Social Media</title>{% endblock %}
 
 {% block content %}
-   <div class="container">
-   {% include 'alerts.html' %}
-        <div class="d-flex justify-content-center align-items-center">
-            <form method="post" class="">
-          {% csrf_token %}
-           <h3>Are you sure?</h3>
-           <button class="btn btn-light" type="submit"> Yes, delete </button>
-           <a href="{% url 'profile:profile-detailed' pk=user_pk %}" class="btn btn-secondary"> No </a>
-       </form>
-        </div>
-
-   </div>
-
+{% url 'profile:profile-detailed' pk=user_pk as cancel %}
+{% include "partials/confirm.html" with title="Unsubscribe?" body="Their posts will stop appearing in your feed." confirm="Unsubscribe" cancel_url=cancel icon="bi-bell-slash" %}
 {% endblock %}

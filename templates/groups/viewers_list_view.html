@@ -1,24 +1,34 @@
 {% extends "base.html" %}
-{% block title %}
-    <title>Viewers of {{ viewers.first.channel }} channel</title>
-{% endblock %}
+{% block title %}<title>Viewers · Social Media</title>{% endblock %}
+{% block space %}space-channel{% endblock %}
+
 {% block content %}
-    <div class="container">
-        <div class="row">
-            {% for viewer in viewers %}
-                <div class="col-12 col-md-4">
-                    <div class="card mt-3">
-                        <div class="d-flex align-items-center justify-content-center">
-                            {% if viewer.user.pfp %}
-                                <img src="{{ viewer.user.pfp.url }}" alt="Profile Picture" class="m-3"
-                                     style="border-radius: 50%; width: 200px; height:200px; border: 2px grey solid">
-                            {% endif %}
-                            <h3 class="card-title">{{ viewer.user.username }}</h3>
-                            <a href="{% url "profile:profile-detailed" pk=viewer.user.pk %}" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+<div class="page">
+  {% with parent=viewers.first.channel %}
+  {% if parent %}<a class="backlink" href="{% url 'groups:channel-detailed' pk=parent.pk %}"><i class="bi bi-arrow-left" aria-hidden="true"></i> {{ parent.title }}</a>{% endif %}
+  <div class="page-head">
+    <div>
+      <h1>Viewers</h1>
+      <p>{% if parent %}{{ parent.title }} · {% endif %}{{ viewers|length }} viewer{{ viewers|length|pluralize }}</p>
     </div>
+  </div>
+  {% endwith %}
+
+  {% if viewers %}
+    <div class="people">
+      {% for item in viewers %}
+        <div class="person space-person">
+          {% if item.is_admin %}<span class="chip chip-solid badge space-channel"><i class="bi bi-star-fill" aria-hidden="true"></i> Admin</span>{% endif %}
+          {% include "partials/avatar.html" with p=item.user %}
+          <div>
+            <h2><a href="{% url 'profile:profile-detailed' pk=item.user.pk %}">{{ item.user.username|default:"New member" }}</a></h2>
+            {% if item.user.status %}<p>{{ item.user.status }}</p>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    {% include "partials/empty.html" with title="No viewers yet" %}
+  {% endif %}
+</div>
 {% endblock %}

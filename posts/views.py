@@ -31,11 +31,11 @@ class PostsListView(ListView):
             return queryset
         groups = Group.objects.filter(members__user=profile)
         channels = Channel.objects.filter(viewers__user=profile)
-        friends = Profile.objects.filter(models.Q(friends_from__user1=profile) | models.Q(friends_to__user2=profile))
-        subscriptions = Profile.objects.filter(subscriptions__subscriber=profile)
+        friends = Profile.objects.filter(models.Q(friends_to__user1=profile) | models.Q(friends_from__user2=profile))
+        subscriptions = Profile.objects.filter(subscribers__subscriber=profile)
 
         posts = Post.objects.filter(
-            models.Q(group__in=groups) | models.Q(channel__in=channels) | models.Q(profile__in=friends) | models.Q(profile__in=subscriptions)).distinct()
+            models.Q(group__in=groups) | models.Q(channel__in=channels) | models.Q(profile__in=friends) | models.Q(profile__in=subscriptions) | models.Q(created_by=profile)).distinct()
 
         return posts
 

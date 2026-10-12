@@ -2,7 +2,7 @@ from django.conf.urls import handler403
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from accounts.forms import UserLoginForm, UserRegisterForm
 
@@ -13,8 +13,12 @@ class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
     redirect_authenticated_user = True
     form_class = UserLoginForm
-    next_page = reverse_lazy("profile:profile-update")
 
+    def get_success_url(self):
+        profile = self.request.user.profile
+        if profile.username and profile.pfp:
+            return reverse("posts:posts-list")
+        return reverse("profile:profile-update")
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('accounts:login')

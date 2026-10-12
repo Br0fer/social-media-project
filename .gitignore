@@ -160,5 +160,8 @@ cython_debug/
 .idea/
 /media/
 
-# Impeccable design tooling (local state, screenshots, live-mode sessions)
-.impeccable/
+# Impeccable design tooling: keep design.json, surface briefs and live config;
+# ignore screenshots and per-session live-mode state (machine-specific)
+.impeccable/review/
+.impeccable/live/*
+!.impeccable/live/config.json

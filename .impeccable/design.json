@@ -1,0 +1,840 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-13T12:00:00Z",
+  "title": "Design System: Social Media",
+  "extensions": {
+    "colorMeta": {
+      "people": {
+        "role": "primary",
+        "displayName": "People Fern",
+        "canonical": "#3d7a22",
+        "dark": "#93c972",
+        "block": {
+          "light": "#3d7a22",
+          "dark": "#2f6619"
+        },
+        "tonalRamp": [
+          "#132a0b",
+          "#1f4a1c",
+          "#2f6619",
+          "#3d7a22",
+          "#5a9a3a",
+          "#93c972",
+          "#cfe6bf",
+          "#f1f5ec"
+        ]
+      },
+      "people-soft": {
+        "role": "primary",
+        "displayName": "Fern Tint",
+        "canonical": "#e3f0d8",
+        "dark": "#1d2e17",
+        "tonalRamp": [
+          "#132a0b",
+          "#1f4a1c",
+          "#2f6619",
+          "#3d7a22",
+          "#5a9a3a",
+          "#93c972",
+          "#cfe6bf",
+          "#f1f5ec"
+        ]
+      },
+      "people-deep": {
+        "role": "primary",
+        "displayName": "Fern Deep",
+        "canonical": "#1f4a1c",
+        "dark": "#cfe6bf",
+        "tonalRamp": [
+          "#132a0b",
+          "#1f4a1c",
+          "#2f6619",
+          "#3d7a22",
+          "#5a9a3a",
+          "#93c972",
+          "#cfe6bf",
+          "#f1f5ec"
+        ]
+      },
+      "groups": {
+        "role": "secondary",
+        "displayName": "Groups Lake Teal",
+        "canonical": "#0f766e",
+        "dark": "#5ec4b8",
+        "block": {
+          "light": "#0f766e",
+          "dark": "#0d5e57"
+        },
+        "tonalRamp": [
+          "#042f2c",
+          "#134e4a",
+          "#0d5e57",
+          "#0f766e",
+          "#14958a",
+          "#5ec4b8",
+          "#bfe9e3",
+          "#effaf8"
+        ]
+      },
+      "groups-soft": {
+        "role": "secondary",
+        "displayName": "Lake Tint",
+        "canonical": "#d5efec",
+        "dark": "#0f2a27",
+        "tonalRamp": [
+          "#042f2c",
+          "#134e4a",
+          "#0d5e57",
+          "#0f766e",
+          "#14958a",
+          "#5ec4b8",
+          "#bfe9e3",
+          "#effaf8"
+        ]
+      },
+      "groups-deep": {
+        "role": "secondary",
+        "displayName": "Lake Deep",
+        "canonical": "#134e4a",
+        "dark": "#bfe9e3",
+        "tonalRamp": [
+          "#042f2c",
+          "#134e4a",
+          "#0d5e57",
+          "#0f766e",
+          "#14958a",
+          "#5ec4b8",
+          "#bfe9e3",
+          "#effaf8"
+        ]
+      },
+      "channels": {
+        "role": "tertiary",
+        "displayName": "Channels Heather",
+        "canonical": "#8b3f8f",
+        "dark": "#cf9ad2",
+        "block": {
+          "light": "#8b3f8f",
+          "dark": "#6e2f73"
+        },
+        "tonalRamp": [
+          "#2b0f2d",
+          "#5b2160",
+          "#6e2f73",
+          "#8b3f8f",
+          "#a85bab",
+          "#cf9ad2",
+          "#f0d9f0",
+          "#faf2fa"
+        ]
+      },
+      "channels-soft": {
+        "role": "tertiary",
+        "displayName": "Heather Tint",
+        "canonical": "#f3e3f2",
+        "dark": "#2b1a2c",
+        "tonalRamp": [
+          "#2b0f2d",
+          "#5b2160",
+          "#6e2f73",
+          "#8b3f8f",
+          "#a85bab",
+          "#cf9ad2",
+          "#f0d9f0",
+          "#faf2fa"
+        ]
+      },
+      "channels-deep": {
+        "role": "tertiary",
+        "displayName": "Heather Deep",
+        "canonical": "#5b2160",
+        "dark": "#f0d9f0",
+        "tonalRamp": [
+          "#2b0f2d",
+          "#5b2160",
+          "#6e2f73",
+          "#8b3f8f",
+          "#a85bab",
+          "#cf9ad2",
+          "#f0d9f0",
+          "#faf2fa"
+        ]
+      },
+      "on-color": {
+        "role": "neutral",
+        "displayName": "On Colour White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#1a2617",
+          "#2a3a2c",
+          "#53664d",
+          "#748a6d",
+          "#a9bba3",
+          "#d3e0c7",
+          "#f7faf3",
+          "#ffffff"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Moss Paper",
+        "canonical": "#f1f5ec",
+        "dark": "#0d140e",
+        "tonalRamp": [
+          "#0d140e",
+          "#18221a",
+          "#2a3a2c",
+          "#3f5541",
+          "#748a6d",
+          "#b3c8a2",
+          "#e4ecdb",
+          "#f1f5ec"
+        ]
+      },
+      "ground-deep": {
+        "role": "neutral",
+        "displayName": "Deeper Moss",
+        "canonical": "#e4ecdb",
+        "dark": "#121b13",
+        "tonalRamp": [
+          "#0d140e",
+          "#18221a",
+          "#2a3a2c",
+          "#3f5541",
+          "#748a6d",
+          "#b3c8a2",
+          "#e4ecdb",
+          "#f1f5ec"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White Block",
+        "canonical": "#ffffff",
+        "dark": "#18221a",
+        "tonalRamp": [
+          "#0d140e",
+          "#18221a",
+          "#2a3a2c",
+          "#3f5541",
+          "#748a6d",
+          "#b3c8a2",
+          "#f7faf3",
+          "#ffffff"
+        ]
+      },
+      "surface-sunk": {
+        "role": "neutral",
+        "displayName": "Sunk Field",
+        "canonical": "#f7faf3",
+        "dark": "#131b14",
+        "tonalRamp": [
+          "#0d140e",
+          "#18221a",
+          "#2a3a2c",
+          "#3f5541",
+          "#748a6d",
+          "#b3c8a2",
+          "#f7faf3",
+          "#ffffff"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Lichen Hairline",
+        "canonical": "#d3e0c7",
+        "dark": "#2a3a2c",
+        "tonalRamp": [
+          "#0d140e",
+          "#18221a",
+          "#2a3a2c",
+          "#3f5541",
+          "#748a6d",
+          "#b3c8a2",
+          "#d3e0c7",
+          "#f1f5ec"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Sage Rule",
+        "canonical": "#b3c8a2",
+        "dark": "#3f5541",
+        "tonalRamp": [
+          "#0d140e",
+          "#18221a",
+          "#2a3a2c",
+          "#3f5541",
+          "#748a6d",
+          "#b3c8a2",
+          "#d3e0c7",
+          "#f1f5ec"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Forest Ink",
+        "canonical": "#1a2617",
+        "dark": "#e6efe1",
+        "tonalRamp": [
+          "#1a2617",
+          "#2a3a2c",
+          "#53664d",
+          "#748a6d",
+          "#a9bba3",
+          "#d3e0c7",
+          "#e6efe1",
+          "#f7faf3"
+        ]
+      },
+      "ink-strong": {
+        "role": "neutral",
+        "displayName": "Pine Ink",
+        "canonical": "#1f4a1c",
+        "dark": "#ffffff",
+        "tonalRamp": [
+          "#132a0b",
+          "#1f4a1c",
+          "#2f6619",
+          "#3d7a22",
+          "#5a9a3a",
+          "#93c972",
+          "#cfe6bf",
+          "#f1f5ec"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Sage",
+        "canonical": "#53664d",
+        "dark": "#a9bba3",
+        "tonalRamp": [
+          "#1a2617",
+          "#2a3a2c",
+          "#53664d",
+          "#748a6d",
+          "#a9bba3",
+          "#d3e0c7",
+          "#e6efe1",
+          "#f7faf3"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Faint Sage",
+        "canonical": "#748a6d",
+        "dark": "#879a81",
+        "tonalRamp": [
+          "#1a2617",
+          "#2a3a2c",
+          "#53664d",
+          "#748a6d",
+          "#a9bba3",
+          "#d3e0c7",
+          "#e6efe1",
+          "#f7faf3"
+        ]
+      },
+      "danger": {
+        "role": "state",
+        "displayName": "Danger Red",
+        "canonical": "#dc2626",
+        "dark": "#f87171",
+        "tonalRamp": [
+          "#450a0a",
+          "#7f1d1d",
+          "#991b1b",
+          "#b91c1c",
+          "#dc2626",
+          "#f87171",
+          "#fecaca",
+          "#fef2f2"
+        ]
+      },
+      "danger-soft": {
+        "role": "state",
+        "displayName": "Danger Tint",
+        "canonical": "#fee2e2",
+        "dark": "#3a1414",
+        "tonalRamp": [
+          "#450a0a",
+          "#7f1d1d",
+          "#991b1b",
+          "#b91c1c",
+          "#dc2626",
+          "#f87171",
+          "#fecaca",
+          "#fef2f2"
+        ]
+      },
+      "success": {
+        "role": "state",
+        "displayName": "Success Green",
+        "canonical": "#15803d",
+        "dark": "#4ade80",
+        "tonalRamp": [
+          "#052e16",
+          "#14532d",
+          "#166534",
+          "#15803d",
+          "#16a34a",
+          "#4ade80",
+          "#bbf7d0",
+          "#f0fdf4"
+        ]
+      },
+      "success-soft": {
+        "role": "state",
+        "displayName": "Success Tint",
+        "canonical": "#dcfce7",
+        "dark": "#0f2a19",
+        "tonalRamp": [
+          "#052e16",
+          "#14532d",
+          "#166534",
+          "#15803d",
+          "#16a34a",
+          "#4ade80",
+          "#bbf7d0",
+          "#f0fdf4"
+        ]
+      },
+      "warning": {
+        "role": "state",
+        "displayName": "Warning Amber",
+        "canonical": "#b45309",
+        "dark": "#fbbf24",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#92400e",
+          "#b45309",
+          "#d97706",
+          "#fbbf24",
+          "#fde68a",
+          "#fffbeb"
+        ]
+      },
+      "warning-soft": {
+        "role": "state",
+        "displayName": "Warning Tint",
+        "canonical": "#fef3c7",
+        "dark": "#33240a",
+        "tonalRamp": [
+          "#451a03",
+          "#78350f",
+          "#92400e",
+          "#b45309",
+          "#d97706",
+          "#fbbf24",
+          "#fde68a",
+          "#fffbeb"
+        ]
+      }
+    },
+    "spaceScopes": {
+      "description": "Components read --space, --space-soft, --space-deep, --space-block and --on-space. A .space-person (people/fern, default on body), .space-group (groups/lake teal) or .space-channel (channels/heather) ancestor maps them from --people*, --groups* or --channels*. In dark mode --on-space is #0d140e on lifted tones; solid block fields force white text. The liked reaction re-scopes to --channels*, the active repost to --groups*.",
+      "classes": [
+        ".space-person",
+        ".space-group",
+        ".space-channel"
+      ],
+      "sourceVariables": [
+        "--people",
+        "--people-soft",
+        "--people-deep",
+        "--people-block",
+        "--groups",
+        "--groups-soft",
+        "--groups-deep",
+        "--groups-block",
+        "--channels",
+        "--channels-soft",
+        "--channels-deep",
+        "--channels-block"
+      ]
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page h1, hero names, feed title. Unbounded 800."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "h2, form and article titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section, comment, dialog and confirm titles."
+      },
+      "title-sm": {
+        "displayName": "Title Small",
+        "purpose": "Post titles (space deep tone), directory names, empty-state headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text; Inter with cv11 and ss01."
+      },
+      "body-long": {
+        "displayName": "Body Long",
+        "purpose": "Post detail article text at 70ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav pills, reactions, field labels. Sentence case."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Timestamps, helper text, counts with tabular figures."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-1",
+        "value": "0 1px 2px rgba(31, 74, 28, 0.06), 0 2px 6px rgba(31, 74, 28, 0.05)",
+        "dark": "0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25)",
+        "purpose": "Primary button at rest."
+      },
+      {
+        "name": "shadow-2",
+        "value": "0 2px 4px rgba(31, 74, 28, 0.06), 0 10px 24px -6px rgba(31, 74, 28, 0.14)",
+        "dark": "0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px -8px rgba(0, 0, 0, 0.6)",
+        "purpose": "All content blocks at rest, heroes, primary button and welcome tile hover."
+      },
+      {
+        "name": "shadow-3",
+        "value": "0 6px 12px rgba(16, 32, 14, 0.08), 0 24px 48px -12px rgba(16, 32, 14, 0.28)",
+        "dark": "0 8px 16px rgba(0, 0, 0, 0.45), 0 28px 56px -12px rgba(0, 0, 0, 0.7)",
+        "purpose": "Borderless overlays: menu, toasts, dialogs."
+      },
+      {
+        "name": "backdrop",
+        "value": "background: rgba(8, 18, 8, 0.5); backdrop-filter: blur(3px)",
+        "purpose": "Dialog sheet backdrop, forest-black."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 4px color-mix(in srgb, var(--space) 18%, transparent)",
+        "purpose": "Input focus, with border in the space colour."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 3px solid var(--space); outline-offset: 3px",
+        "purpose": "Global :focus-visible ring."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Default for press, entrance, toasts, dialogs, view transitions."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Slow ambient drift of the auth background blocks."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Bottom-sheet dialog on phones (300ms)."
+      },
+      {
+        "name": "press",
+        "value": "transform: scale(0.97) over 160ms ease-out",
+        "purpose": "Buttons; reactions and pager use 0.95, cards 0.98-0.99."
+      },
+      {
+        "name": "state",
+        "value": "150ms ease",
+        "purpose": "Colour, border and background changes."
+      },
+      {
+        "name": "feed-rise",
+        "value": "translateY(8px) fade, 320ms ease-out, 40ms stagger, first four items only",
+        "purpose": "Feed entrance."
+      },
+      {
+        "name": "pop-in",
+        "value": "scale(0.96) translateY(-4px) fade, 180ms ease-out",
+        "purpose": "User menu and file previews."
+      },
+      {
+        "name": "tile-lift",
+        "value": "translateY(-2px) + shadow-2, 200ms ease-out, hover-capable pointers only",
+        "purpose": "Welcome browse tiles."
+      },
+      {
+        "name": "toast",
+        "value": "@starting-style translateY(-12px) scale(0.98), 240ms ease-out; leave translateX(16px) 160ms",
+        "purpose": "Toast enter and exit."
+      },
+      {
+        "name": "view-transition",
+        "value": "root 180ms, groups 280ms ease-out; topbar and tabbar named",
+        "purpose": "Cross-document navigation."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "durations 1ms, press scales off, view transitions off",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "rail-right-drop",
+        "value": "1180px"
+      },
+      {
+        "name": "auth-stack",
+        "value": "900px"
+      },
+      {
+        "name": "mobile-shell",
+        "value": "860px"
+      },
+      {
+        "name": "welcome-compact",
+        "value": "700px"
+      },
+      {
+        "name": "people-list",
+        "value": "640px"
+      },
+      {
+        "name": "phone",
+        "value": "600px"
+      },
+      {
+        "name": "welcome-tiles-stack",
+        "value": "560px"
+      },
+      {
+        "name": "narrow",
+        "value": "520px"
+      },
+      {
+        "name": "tiny",
+        "value": "380px"
+      }
+    ],
+    "brandAssets": {
+      "favicon": "Inline SVG: three staggered 6x18 rounded bars (rx 3) in #3d7a22, #0f766e, #8b3f8f.",
+      "themeColor": {
+        "light": "#f1f5ec",
+        "dark": "#0d140e"
+      },
+      "wordmark": "Three staggered 8x22px leaf blades (radius 8px 2px 8px 2px) in people, groups, channels."
+    },
+    "shapes": [
+      {
+        "name": "leaf",
+        "value": "46% 14% 46% 14%",
+        "purpose": "Group and channel pictures (avatars, hero pictures, directory monograms) and space icon swatches (rail links, welcome tiles)."
+      },
+      {
+        "name": "leaf-blade",
+        "value": "8px 2px 8px 2px",
+        "purpose": "The three wordmark bars."
+      },
+      {
+        "name": "pointed-leaf",
+        "value": "100% 0 100% 0",
+        "purpose": "Empty-state sprout (three 20px leaves, 30/46/26px tall, outer two rotated -12/12deg); welcome background leaves use 100% 0 100% 0 / 60% 0 60% 0."
+      },
+      {
+        "name": "pebble",
+        "value": "58% 42% 52% 48% / 48% 56% 44% 52%",
+        "purpose": "Drifting shapes behind the sign-in and register art."
+      }
+    ],
+    "materials": [
+      {
+        "name": "grain",
+        "value": "SVG feTurbulence fractalNoise, baseFrequency .85, 2 octaves, 180px tile, forest-tinted at ~7% alpha",
+        "purpose": "Body background in light theme only; none in dark."
+      },
+      {
+        "name": "contours",
+        "value": "Inline SVG, white 1.4px strokes: four nested elevation rings plus three ridge lines; cover, right center, opacity 0.22, mask linear-gradient(100deg, transparent 20%, #000 70%)",
+        "purpose": "Space hero pattern."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Chunky pill in the current space colour for the main action.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">New post</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px; border: 1.5px solid var(--btn-line); border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font: 600 0.875rem/1 Inter, system-ui, sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms ease, filter 150ms ease; } .ds-btn-primary { --btn-bg: #3d7a22; --btn-fg: #fff; --btn-line: #3d7a22; box-shadow: 0 1px 2px rgba(31, 74, 28, 0.06), 0 2px 6px rgba(31, 74, 28, 0.05); } .ds-btn-primary:hover { box-shadow: 0 2px 4px rgba(31, 74, 28, 0.06), 0 10px 24px -6px rgba(31, 74, 28, 0.14); filter: brightness(1.06); } .ds-btn:active { transform: scale(0.97); } .ds-btn:focus-visible { outline: 3px solid #3d7a22; outline-offset: 3px; }"
+    },
+    {
+      "name": "Soft Button",
+      "kind": "button",
+      "refersTo": "button-soft",
+      "description": "Space tint with deep text for secondary actions.",
+      "html": "<button class=\"ds-btn-soft\">Find people</button>",
+      "css": ".ds-btn-soft { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border: 1.5px solid transparent; border-radius: 999px; background: #e3f0d8; color: #1f4a1c; font: 600 0.875rem/1 Inter, system-ui, sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), border-color 150ms ease; } .ds-btn-soft:hover { border-color: #3d7a22; } .ds-btn-soft:active { transform: scale(0.97); } .ds-btn-soft:focus-visible { outline: 3px solid #3d7a22; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Transparent pill with a hairline for tertiary actions.",
+      "html": "<button class=\"ds-btn-ghost\">Cancel</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border: 1.5px solid #d3e0c7; border-radius: 999px; background: transparent; color: #1a2617; font: 600 0.875rem/1 Inter, system-ui, sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, border-color 150ms ease; } .ds-btn-ghost:hover { background: #fff; border-color: #b3c8a2; } .ds-btn-ghost:active { transform: scale(0.97); } .ds-btn-ghost:focus-visible { outline: 3px solid #3d7a22; outline-offset: 3px; }"
+    },
+    {
+      "name": "Reaction Toggle",
+      "kind": "button",
+      "refersTo": "reaction",
+      "description": "Like and repost pills; on-state takes heather (like) or lake teal (repost) tint.",
+      "html": "<div class=\"ds-reacts\"><button class=\"ds-react ds-react-like is-on\" aria-pressed=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314\"/></svg> 12</button><button class=\"ds-react ds-react-repost is-on\" aria-pressed=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z\"/></svg> 3</button><button class=\"ds-react\" aria-pressed=\"false\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z\"/></svg> 0</button></div>",
+      "css": ".ds-reacts { display: flex; gap: 8px; } .ds-react { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #d3e0c7; background: #fff; color: #53664d; font: 600 0.875rem/1 Inter, system-ui, sans-serif; font-variant-numeric: tabular-nums; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, border-color 150ms ease, color 150ms ease; } .ds-react:hover { border-color: #b3c8a2; color: #1a2617; } .ds-react:active { transform: scale(0.95); } .ds-react-like.is-on { background: #f3e3f2; border-color: transparent; color: #5b2160; } .ds-react-like.is-on svg { color: #8b3f8f; } .ds-react-repost.is-on { background: #d5efec; border-color: transparent; color: #134e4a; } .ds-react-repost.is-on svg { color: #0f766e; } .ds-react:focus-visible { outline: 3px solid #3d7a22; outline-offset: 3px; }"
+    },
+    {
+      "name": "Space Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Small pill naming a space; tinted in its colour.",
+      "html": "<span class=\"ds-chip ds-chip-group\">Group</span> <span class=\"ds-chip ds-chip-channel\">Channel</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; font: 600 12px/1 Inter, system-ui, sans-serif; white-space: nowrap; } .ds-chip-group { background: #d5efec; color: #134e4a; } .ds-chip-channel { background: #f3e3f2; color: #5b2160; }"
+    },
+    {
+      "name": "Post Block",
+      "kind": "card",
+      "refersTo": "post-origin-strip",
+      "description": "Signature feed item: white block opened by a solid strip in its space's colour.",
+      "html": "<article class=\"ds-post\"><div class=\"ds-post-origin\"><span class=\"ds-post-av\">K</span><span class=\"ds-post-who\"><strong>Київські фотографи</strong><small>Олена Коваль · 12 Oct, 20:29</small></span><span class=\"ds-post-chip\">Group</span></div><div class=\"ds-post-body\"><h3>Ранок на Подолі</h3><p>Вийшла о шостій, поки місто ще спить.</p></div></article>",
+      "css": ".ds-post { max-width: 560px; overflow: hidden; background: #fff; border: 1px solid #d3e0c7; border-radius: 22px; box-shadow: 0 2px 4px rgba(31, 74, 28, 0.06), 0 10px 24px -6px rgba(31, 74, 28, 0.14); transition: border-color 200ms ease; } .ds-post:hover { border-color: #b3c8a2; } .ds-post-origin { display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 12px; background: #0f766e; color: #fff; } .ds-post-av { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 46% 14% 46% 14%; background: color-mix(in srgb, #000 16%, #0f766e); box-shadow: 0 0 0 2px rgba(255,255,255,0.7); font: 700 14px/1 Unbounded, Inter, sans-serif; } .ds-post-who { display: grid; line-height: 1.35; font: 700 1rem Inter, system-ui, sans-serif; } .ds-post-who small { font-weight: 400; font-size: 0.8125rem; opacity: 0.82; } .ds-post-chip { margin-left: auto; height: 26px; padding: 0 10px; display: inline-flex; align-items: center; border-radius: 999px; background: rgba(255,255,255,0.18); font: 600 12px/1 Inter, sans-serif; } .ds-post-body { padding: 16px 24px 24px; display: grid; gap: 12px; } .ds-post-body h3 { margin: 0; font: 700 1.25rem/1.3 Unbounded, Inter, sans-serif; letter-spacing: -0.02em; color: #134e4a; } .ds-post-body p { margin: 0; color: #53664d; font: 400 1rem/1.55 Inter, system-ui, sans-serif; }"
+    },
+    {
+      "name": "Space Hero",
+      "kind": "custom",
+      "refersTo": "space-hero",
+      "description": "Header slab for a profile, group or channel in the space's block colour, with terrain contours and a leaf picture for groups and channels.",
+      "html": "<section class=\"ds-hero\"><div class=\"ds-hero-pattern\"></div><div class=\"ds-hero-inner\"><span class=\"ds-hero-av\">P</span><div><h1>Product updates</h1><p>Release notes and news.</p></div></div><div class=\"ds-hero-actions\"><button class=\"ds-hero-btn\">Follow</button></div></section>",
+      "css": ".ds-hero { position: relative; overflow: hidden; isolation: isolate; border-radius: 32px; background: #8b3f8f; color: #fff; box-shadow: 0 2px 4px rgba(31, 74, 28, 0.06), 0 10px 24px -6px rgba(31, 74, 28, 0.14); } .ds-hero-pattern { position: absolute; inset: 0; z-index: -1; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400' fill='none' stroke='%23fff' stroke-width='1.4'%3E%3Cpath d='M430 40c90 10 150 80 140 160s-90 150-190 140-160-70-150-160S340 30 430 40z'/%3E%3Cpath d='M432 78c66 8 108 58 100 118s-66 108-138 100-114-50-106-116 78-110 144-102z'/%3E%3Cpath d='M434 116c44 6 70 38 64 78s-44 70-92 64-74-32-68-76 52-72 96-66z'/%3E%3Cpath d='M436 152c22 4 36 20 32 40s-22 34-46 30-36-16-32-38 24-36 46-32z'/%3E%3Cpath d='M-20 330c80-40 160-10 230 20s150 40 230-10 140-40 190-10'/%3E%3Cpath d='M-20 365c80-36 160-6 230 22s150 36 230-8 140-36 190-8'/%3E%3Cpath d='M-20 295c70-44 150-20 220 12s150 46 230 0 140-50 190-20'/%3E%3C/svg%3E\"); background-size: cover; background-position: right center; background-repeat: no-repeat; opacity: 0.22; mask-image: linear-gradient(100deg, transparent 20%, #000 70%); -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 70%); } .ds-hero-inner { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: end; padding: 48px 32px 24px; } .ds-hero-av { display: grid; place-items: center; width: 88px; height: 88px; border-radius: 46% 14% 46% 14%; border: 4px solid #fff; background: color-mix(in srgb, #000 14%, #8b3f8f); font: 700 2rem/1 Unbounded, sans-serif; } .ds-hero h1 { margin: 0; font: 800 2rem/1.15 Unbounded, Inter, sans-serif; letter-spacing: -0.02em; color: #fff; } .ds-hero p { margin: 8px 0 0; color: rgba(255,255,255,0.88); font: 400 1rem/1.55 Inter, sans-serif; } .ds-hero-actions { padding: 16px 32px; background: rgba(0,0,0,0.14); border-top: 1px solid rgba(255,255,255,0.16); } .ds-hero-btn { min-height: 44px; padding: 0 20px; border: 1.5px solid #fff; border-radius: 999px; background: #fff; color: #8b3f8f; font: 600 0.875rem/1 Inter, sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-hero-btn:active { transform: scale(0.97); } .ds-hero-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Welcome Browse Tiles",
+      "kind": "custom",
+      "refersTo": "welcome-browse-tile",
+      "description": "Three solid space-block tiles on the signed-out welcome; stack into rows on phones and lift on hover.",
+      "html": "<div class=\"ds-browse\"><a href=\"#\" class=\"ds-tile ds-tile-group\"><span class=\"ds-tile-sw\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 4h16v12H9l-5 4z\"/><path d=\"M8 9h8M8 12h5\"/></svg></span><span>Browse groups<small>Everyone can post</small></span></a><a href=\"#\" class=\"ds-tile ds-tile-channel\"><span class=\"ds-tile-sw\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"2\"/><path d=\"M8 8a5.5 5.5 0 0 0 0 8M16 8a5.5 5.5 0 0 1 0 8M5 5a9.5 9.5 0 0 0 0 14M19 5a9.5 9.5 0 0 1 0 14\"/></svg></span><span>Browse channels<small>Only admins post</small></span></a><a href=\"#\" class=\"ds-tile ds-tile-person\"><span class=\"ds-tile-sw\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><circle cx=\"17\" cy=\"9\" r=\"2.5\"/><path d=\"M17.5 14.5a5 5 0 0 1 4 5.5\"/></svg></span><span>Find people<small>Search by username</small></span></a></div>",
+      "css": ".ds-browse { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding-top: 24px; border-top: 1px solid #d3e0c7; } .ds-tile { display: grid; align-content: space-between; gap: 18px; min-height: 132px; padding: 18px 20px; border-radius: 22px; color: #fff; text-decoration: none; font: 700 1rem/1.2 Unbounded, Inter, sans-serif; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms ease; } .ds-tile-group { background: #0f766e; } .ds-tile-channel { background: #8b3f8f; } .ds-tile-person { background: #3d7a22; } .ds-tile:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(31, 74, 28, 0.06), 0 10px 24px -6px rgba(31, 74, 28, 0.14); } .ds-tile:active { transform: scale(0.97); } .ds-tile:focus-visible { outline: 3px solid #3d7a22; outline-offset: 3px; } .ds-tile-sw { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 46% 14% 46% 14%; background: color-mix(in srgb, #fff 20%, transparent); } .ds-tile small { display: block; margin-top: 4px; font: 500 0.8125rem Inter, system-ui, sans-serif; color: color-mix(in srgb, #fff 82%, transparent); } @media (max-width: 560px) { .ds-browse { grid-template-columns: 1fr; } .ds-tile { min-height: 0; grid-template-columns: auto 1fr; align-items: center; } }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Sunk field that turns white with a space-colour border and halo on focus.",
+      "html": "<label class=\"ds-field\"><span>Title</span><input class=\"ds-input\" placeholder=\"What happened?\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font: 600 0.875rem Inter, system-ui, sans-serif; color: #1a2617; } .ds-input { width: 100%; min-height: 48px; padding: 12px 16px; border: 1.5px solid #d3e0c7; border-radius: 14px; background: #f7faf3; color: #1a2617; font: 400 1rem/1.4 Inter, system-ui, sans-serif; caret-color: #3d7a22; transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease; } .ds-input::placeholder { color: #748a6d; } .ds-input:hover { border-color: #b3c8a2; } .ds-input:focus { outline: none; border-color: #3d7a22; background: #fff; box-shadow: 0 0 0 4px color-mix(in srgb, #3d7a22 18%, transparent); }"
+    },
+    {
+      "name": "Top Nav",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Pill nav items; each active item fills with its own space's tint.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Feed</a><a href=\"#\" class=\"ds-nav-group\" aria-current=\"page\"><span class=\"ds-dot\"></span>Groups</a><a href=\"#\" class=\"ds-nav-channel\"><span class=\"ds-dot\"></span>Channels</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; padding: 12px; background: color-mix(in srgb, #f1f5ec 86%, transparent); backdrop-filter: saturate(1.4) blur(14px); } .ds-nav a { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 999px; color: #53664d; font: 600 0.875rem Inter, system-ui, sans-serif; text-decoration: none; transition: background-color 150ms ease, color 150ms ease; } .ds-nav a:hover { color: #1a2617; background: #e4ecdb; } .ds-nav a:focus-visible { outline: 3px solid #3d7a22; outline-offset: 3px; } .ds-dot { width: 8px; height: 8px; border-radius: 3px; } .ds-nav-group .ds-dot { background: #0f766e; } .ds-nav-channel .ds-dot { background: #8b3f8f; } .ds-nav-group[aria-current=\"page\"] { background: #d5efec; color: #134e4a; }"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Borderless level-3 notice with a tinted tone tile.",
+      "html": "<div class=\"ds-toast\"><span class=\"ds-toast-icon\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0\"/></svg></span><p>Post published.</p></div>",
+      "css": ".ds-toast { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; max-width: 380px; padding: 12px 16px; background: #fff; border-radius: 14px; box-shadow: 0 6px 12px rgba(16, 32, 14, 0.08), 0 24px 48px -12px rgba(16, 32, 14, 0.28); color: #1a2617; font: 500 0.875rem Inter, system-ui, sans-serif; } .ds-toast p { margin: 0; } .ds-toast-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: #dcfce7; color: #15803d; }"
+    },
+    {
+      "name": "Empty State",
+      "kind": "custom",
+      "refersTo": "empty-state",
+      "description": "Dashed placeholder with a three-leaf sprout in the space colour.",
+      "html": "<div class=\"ds-empty\"><div class=\"ds-sprout\" aria-hidden=\"true\"><i></i><i></i><i></i></div><h2>No posts yet</h2><p>Posts you and the people you follow publish will show up here.</p></div>",
+      "css": ".ds-empty { display: grid; justify-items: center; gap: 12px; text-align: center; padding: 48px 24px; border: 2px dashed #b3c8a2; border-radius: 22px; color: #53664d; font: 400 1rem/1.55 Inter, system-ui, sans-serif; } .ds-empty h2 { margin: 0; font: 700 1.25rem/1.3 Unbounded, Inter, sans-serif; letter-spacing: -0.02em; color: #1f4a1c; } .ds-empty p { margin: 0; max-width: 44ch; } .ds-sprout { display: flex; gap: 6px; margin-bottom: 8px; align-items: flex-end; } .ds-sprout i { display: block; width: 20px; border-radius: 100% 0 100% 0; background: #3d7a22; opacity: 0.9; } .ds-sprout i:nth-child(1) { height: 30px; transform: rotate(-12deg); } .ds-sprout i:nth-child(2) { height: 46px; opacity: 0.6; } .ds-sprout i:nth-child(3) { height: 26px; opacity: 0.35; transform: rotate(12deg); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Three Coloured Rooms",
+    "overview": "The app is a house with three rooms, and each room is painted one solid colour taken from the outdoors: people are fern green, groups are lake teal, channels are heather. Every post, header, directory entry and nav item announces which room it belongs to through a full-strength block of that colour, so a reviewer always knows whether they are acting on a person, in a group or in a channel. Fern doubles as the brand, because the default room is your own profile.\n\nAround those blocks the world is calm and natural: a pale moss-tinted paper ground with a faint fractal grain, white content blocks with generous 22px corners, chunky pill buttons, and soft forest-tinted shadows that sit with a real downward offset. The forms are organic: group and channel pictures are leaves, the space headers carry terrain contour lines, and the wordmark is three leaf blades. Headings speak in Unbounded, wide and heavy; everything else is Inter. Dark mode follows the OS and swaps the paper for deep forest-black, lifting the three space colours for contrast while keeping their identity.\n\nMotion is quick and physical: custom ease-out curves, a slight scale on press, toasts and dialogs that enter from `@starting-style`, short staggered feed entrance, and cross-document view transitions that keep the top bar still. All of it collapses under `prefers-reduced-motion`.",
+    "keyCharacteristics": [
+      "One space, one colour, at full strength (fern people, lake-teal groups, heather channels).",
+      "Colour is scoped, never hard-coded: components read `--space*` variables and a `.space-person` / `.space-group` / `.space-channel` ancestor decides the room.",
+      "White blocks on grained moss paper, 22px corners, soft forest-tinted offset shadows.",
+      "Leaf-shaped pictures for groups and channels, circles for people; terrain contours in space headers.",
+      "Unbounded 700-800 headings, Inter body, Bootstrap Icons line icons.",
+      "Pill controls with 44px minimum touch height and a 0.97 press scale.",
+      "Light and dark from the OS; the space colours survive both."
+    ],
+    "rules": [
+      {
+        "name": "The One Room, One Colour Rule",
+        "body": "A surface takes the colour of the space it belongs to and no other. Set the room with a `.space-person`, `.space-group` or `.space-channel` scope and let components read `--space`, `--space-soft`, `--space-deep` and `--space-block`; never hard-code a space hex inside a component.",
+        "section": "colors"
+      },
+      {
+        "name": "The Full Strength Rule",
+        "body": "Where a surface names its space (origin strip, hero, monogram, welcome tile), the colour is a solid block at full strength, using the block tone, with white text. Tints are for controls and states, not for identifying a space.",
+        "section": "colors"
+      },
+      {
+        "name": "The Block Tone Rule",
+        "body": "Solid colour fields (origin strips, heroes, monograms, avatar fallbacks, welcome tiles) use the block tone in both themes, so one space is one colour everywhere; lifted tones are only for text-scale and control-scale use.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Unbounded is for headings, the wordmark, avatar initials, hero stats, monograms and welcome-tile labels; Inter is for everything a person reads or presses. No third family.",
+        "section": "typography"
+      },
+      {
+        "name": "The Room for Ukrainian Rule",
+        "body": "Headings and paragraphs wrap with `overflow-wrap: anywhere` and balanced/pretty wrapping; never size a control or heading to fit an English string exactly.",
+        "section": "typography"
+      },
+      {
+        "name": "The Soft Offset Rule",
+        "body": "Shadows are blurred, layered and offset downward; never a hard, unblurred offset shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Borderless Overlay Rule",
+        "body": "Anything floating above the page (menu, toast, dialog) has no visible border; its shadow is the edge.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Quiet Texture Rule",
+        "body": "Texture lives in two places only: the paper grain on the light-theme ground and the contour lines on space heroes. Both stay faint (grain about 7% alpha, contours 0.22 opacity) and sit behind content; never put texture on content blocks, controls or text.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Leaf Is a Space Rule",
+        "body": "The leaf shape belongs to space pictures: group and channel avatars, monograms and hero pictures, plus the icon swatches that stand for a space. A person's picture is always a circle, and controls, blocks and fields never take the leaf.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** wrap every surface in the scope of its space (`.space-person`, `.space-group`, `.space-channel`) and let components read `--space*` variables.",
+      "**Do** mark where a post or page lives with a full-strength block of its space colour, using the block tone so it matches in light and dark.",
+      "**Do** size standard buttons, reactions, pager links and menu rows at 44px (small buttons 36px, top-bar nav pills 40px) and give pressable controls the press scale (0.95-0.97) with `cubic-bezier(0.23, 1, 0.32, 1)`.",
+      "**Do** use the soft forest-tinted offset shadows (level 2 for content, level 3 for overlays) and drop the border on overlays.",
+      "**Do** give group and channel pictures and space swatches the leaf shape (`--leaf`), and keep people pictures circular.",
+      "**Do** use Bootstrap Icons line glyphs, `aria-hidden`, beside a visible or screen-reader label.",
+      "**Do** guard every animation with `prefers-reduced-motion` and hover effects with `(hover: hover) and (pointer: fine)`.",
+      "**Do** use tabular figures for counts and stats."
+    ],
+    "donts": [
+      "**Don't** let one space's colour identify another space's surface; fern on a group header or a heather strip on a profile post breaks the reading of the whole app. The fixed-colour exceptions in the build are reaction states (like heather, repost lake teal) and info toasts (lake teal).",
+      "**Don't** use a pale tint where the build uses a solid block to name a space (origin strips, heroes, monograms, welcome tiles).",
+      "**Don't** add a hard, unblurred offset shadow; depth here is always soft.",
+      "**Don't** introduce a third typeface or set body text in Unbounded.",
+      "**Don't** use the state colours (danger, success, warning) to identify a space, or a space colour to signal an error.",
+      "**Don't** use square corners on controls; buttons, chips, reactions, top-bar nav items and pager links are pills, and list rows inside blocks round at 10-14px."
+    ]
+  }
+}
